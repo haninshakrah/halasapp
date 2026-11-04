@@ -23,7 +23,7 @@
 
 ## 0. Börja från noll: skapa en ny repo
 
-Du behöver mappen `github-upload`. Ladda ner den från Claude och packa upp den. Den innehåller appfilerna, men inte arbetsflödesfilen. Den skapar du direkt på GitHub i steg 3.
+Du behöver mappen github-upload (ladda ner den från Claude och packa upp den). Den innehåller allt utom arbetsflödesfilen, som du skapar direkt på GitHub i steg 3.
 
 ### Steg 1: Skapa repon
 
@@ -119,6 +119,9 @@ Det här passar för ändringar av text, namn, kategorier och tider.
 
 | Sök efter | Ändrar |
 | --- | --- |
+| `ROUTINE =` | Dagsrutinen: tid, namn och del av dagen (Morgon, Eftermiddag, Kväll). En rad per punkt. |
+| `GOALS =` | Veckomålen: namn, antal gånger per vecka (target) och stjärnor per gång (stars). |
+| `REWARDS =` | Belöningarna: namn och kostnad i stjärnor (cost). |
 | `FAMILY =` | Familjemedlemmarnas namn i vyn 4c. |
 | `CATS =` | Kategorierna, till exempel Inköp, Hämta medicin och Övrigt. Varje rad har id, namn och exempeltext. |
 | `TOS =` | Mottagarknapparna: Sjuksköterska, Kontaktperson och Annan. |
@@ -191,6 +194,39 @@ Sidan visar själv tid och datum. Den byter sida var 12:e sekund och behöver in
 - Välj namn, kategori och mottagare.
 - Familjen kan se om personalen har kvitterat och trycker själv på **Kvittera läst**.
 - Kalendern är Halas Google-kalender. Alla som har länken kan lägga in tider.
+
+- ## 6b. Skärmsläckarens sidor, dagsrutin, mål och stjärnor
+
+### Skärmsläckaren
+
+**Fasta delar:** veckodag, datum, klocka, veckonummer, och en grön rad med **Just nu** och **Härnäst.**
+Sidor som byter var 12:e sekund: **Idag,** **Dagsrutin,** **Mina stjärnor,** **Den här veckan,** **Veckans matsedel,** och **Hälsningar från familjen** när sådana finns.
+Just nu och Härnäst räknas från dagsrutinen och dagens aktiviteter.
+
+### Dagsrutin (personalen)
+Skriv ditt namn i namnfältet i personalvyn (4b).
+I rutan **Dagsrutin idag** trycker du på en punkt när den är gjord. Den får en bock och visas överstruken på skärmsläckaren.
+Håll musen över punkten för att se vem som bockade av och när.
+Bockarna nollställs varje natt. Tryck igen för att ångra.
+
+###Mål och stjärnor (personalen)
+Skriv ditt namn i namnfältet.
+Tryck på ett mål i rutan **Mål och stjärnor** när Hala har gjort det, till exempel träning eller promenad. Hon får stjärnor enligt målet och namn och tid loggas.
+När veckans antal är nått blir knappen grön. Fler tryck ger inga extra stjärnor.
+Gick det fel, tryck **Ångra senaste.**
+När saldot räcker för en belöning blir knappen **Lös in** röd. Tryck på den när belöningen har genomförts, och skicka sedan ett meddelande till familjen i 4c eller 4b, så att de kan boka frisör eller utflykt.
+Målen nollställs varje måndag. Stjärnorna sparas.
+
+### Anpassa
+Mål, belöningar och dagsrutin ändrar du i filen. Sök på GOALS =, REWARDS = eller ROUTINE = (avsnitt 2). Ändra bara namn och siffror, och behåll tecknen runtom. Vill du lägga till en punkt, kopiera en hel rad och ge den ett nytt id.
+
+### Familjen
+
+- Öppna samma adress och välj vyn **Familj** (4c).
+- Välj namn, kategori och mottagare.
+- Familjen kan se om personalen har kvitterat och trycker själv på **Kvittera läst**.
+- Kalendern är Halas Google-kalender. Alla som har länken kan lägga in tider.
+
 
 ## 7. Viktigt innan ni börjar använda appen
 
