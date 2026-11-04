@@ -103,7 +103,7 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
               <div style="margin-top:20px;border-top:2px solid var(--color-divider);padding-top:12px">
                 <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Delad kalender</div>
                 <div style="font-size:14px;line-height:1.45;margin:4px 0 8px">Halas Google-kalender. Alla i familjen kan se och uppdatera den.</div>
-                <iframe title="Halas kalender" src="https://calendar.google.com/calendar/embed?src=a45e5a856316a857754f99348eac8b3cdd5fd92edf48f7c88482c611816deccf%40group.calendar.google.com&mode=AGENDA&hl=sv&ctz=Europe%2FStockholm&showTitle=0&showNav=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23f3f2f2" style="width:100%;height:360px;border:2px solid var(--color-divider);background:var(--color-bg);display:block;margin-bottom:8px"></iframe>
+                <iframe title="Halas kalender" src="https://calendar.google.com/calendar/embed?src=a45e5a856316a857754f99348eac8b3cdd5fd92edf48f7c88482c611816deccf%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sv&bgcolor=%23f1ece1" style="width:100%;height:520px;border:2px solid var(--color-divider);background:var(--color-bg);display:block;margin-bottom:8px"></iframe>
                 <a class="btn btn-secondary btn-block" style="margin-top:0" href="https://calendar.google.com/calendar/u/0?cid=YTQ1ZTVhODU2MzE2YTg1Nzc1NGY5OTM0OGVhYzhiM2NkZDVmZDkyZWRmNDhmN2M4ODQ4MmM2MTE4MTZkZWNjZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener">Redigera i Google Kalender</a>
               </div>
             </sc-if>
@@ -395,12 +395,45 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
             <div style="font-size:64px;font-weight:800;line-height:1">{{ weekNo }}</div>
           </div>
         </div>
-        <div style="display:grid;grid-template-rows:auto 1fr;min-height:0">
+        <div style="display:grid;grid-template-rows:auto auto 1fr;min-height:0">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:22px 36px 16px;border-bottom:2px solid var(--color-divider)">
             <div style="font-size:30px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--color-accent-700)">{{ pageTitle }}</div>
             <div style="display:flex;gap:10px"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="4"><div style="width:16px;height:16px;border:2px solid var(--color-text);background:{{ d.bg }}"></div></sc-for></div>
           </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--color-accent);color:var(--color-bg)">
+            <div style="padding:14px 36px;border-right:2px solid var(--color-bg)"><div style="font-size:15px;letter-spacing:.1em;text-transform:uppercase;font-weight:800">Just nu</div><div style="font-size:32px;font-weight:800;line-height:1.15">{{ nowTxt }}</div></div>
+            <div style="padding:14px 36px"><div style="font-size:15px;letter-spacing:.1em;text-transform:uppercase;font-weight:800">Härnäst</div><div style="font-size:32px;font-weight:800;line-height:1.15">{{ nextTxt }}</div></div>
+          </div>
           <div style="min-height:0;overflow:hidden">
+            <sc-if value="{{ pMal }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:grid;grid-template-columns:1.2fr 1fr">
+                <div style="padding:22px 32px;border-right:1px solid var(--color-divider)">
+                  <div style="display:flex;align-items:baseline;gap:18px"><div style="font-family:var(--font-heading);font-size:84px;font-weight:800;line-height:1">{{ balance }}</div><div style="font-size:22px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700)">Veckans mål</div></div>
+                  <sc-for list="{{ goalRows }}" as="g" hint-placeholder-count="6">
+                    <div style="display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:10px 0;border-top:1px solid var(--color-divider);opacity:{{ g.op }}"><span style="font-size:24px;font-weight:800;line-height:1.2">{{ g.name }}</span><span style="font-size:22px;letter-spacing:.1em">{{ g.sq }}</span><span style="font-size:22px;font-weight:800;color:var(--color-accent-700)">{{ g.stars }}</span></div>
+                  </sc-for>
+                </div>
+                <div style="padding:22px 28px">
+                  <div style="font-size:22px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px">Belöningar</div>
+                  <sc-for list="{{ rewardRows }}" as="w" hint-placeholder-count="5">
+                    <div style="padding:10px 12px;margin-bottom:6px;border:2px solid var(--color-text);background:{{ w.bg }};color:{{ w.fg }}"><div style="display:flex;justify-content:space-between;gap:10px;font-size:22px;font-weight:800;line-height:1.2"><span>{{ w.name }}</span><span>{{ w.cost }}</span></div><div style="font-size:17px;margin-top:2px">{{ w.status }}</div></div>
+                  </sc-for>
+                  <div style="font-size:20px;font-weight:800;margin-top:12px;line-height:1.3">{{ nextReward }}</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ pRut }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:grid;grid-template-columns:repeat(3,1fr)">
+                <sc-for list="{{ routineCols }}" as="c" hint-placeholder-count="3">
+                  <div style="padding:22px 24px;border-right:1px solid var(--color-divider)">
+                    <div style="font-size:24px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);margin-bottom:12px">{{ c.part }}</div>
+                    <sc-for list="{{ c.items }}" as="i" hint-placeholder-count="4">
+                      <div style="display:grid;grid-template-columns:70px 1fr 30px;gap:6px;align-items:baseline;padding:10px 0;border-top:1px solid var(--color-divider);font-size:25px;font-weight:800;opacity:{{ i.op }};text-decoration:{{ i.deco }}"><span>{{ i.t }}</span><span>{{ i.n }}</span><span style="text-decoration:none">{{ i.mark }}</span></div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
             <sc-if value="{{ p0 }}" hint-placeholder-val="{{ true }}">
               <div style="padding:32px 36px;display:flex;flex-direction:column;gap:36px">
                 <div>
@@ -472,9 +505,22 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
           </div>
           <button class="btn btn-primary btn-block" style="padding:14px 16px;font-size:18px" onClick="{{ onAdd }}">Spara och logga</button>
           <sc-if value="{{ hasFormMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px;font-weight:800;color:var(--color-accent-700)">{{ formMsg }}</div></sc-if>
+          <sc-if value="{{ hasLink }}" hint-placeholder-val="{{ false }}"><a href="{{ lastLink }}" target="_blank" rel="noopener" style="font-size:15px;font-weight:800">Öppna som färdig tid i Google Kalender</a></sc-if>
+          <sc-if value="{{ isEditing }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" style="padding:9px 14px;font-size:14px" onClick="{{ cancelEdit }}">Avbryt ändring</button></sc-if>
+          <sc-if value="{{ hasCalList }}" hint-placeholder-val="{{ false }}">
+            <div style="border-top:2px solid var(--color-divider);padding-top:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Kommande i Google Kalender</div>
+            <sc-for list="{{ calList }}" as="c" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--color-divider)"><div><div style="font-size:15px;font-weight:800">{{ c.title }}</div><div style="font-size:12px;color:var(--color-neutral-700)">{{ c.when }}</div></div><button class="btn btn-secondary" style="padding:6px 10px;font-size:13px" onClick="{{ c.onEdit }}">Ändra</button><button class="btn btn-secondary" style="padding:6px 10px;font-size:13px" onClick="{{ c.onDel }}">{{ c.delLabel }}</button></div>
+            </sc-for>
+          </sc-if>
         </div>
         <div style="padding:20px 28px;display:flex;flex-direction:column;min-height:0">
           <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><h2 style="font-size:30px;margin:0">Att hålla koll på</h2><div style="display:flex;gap:8px"><span class="tag tag-neutral">{{ openCount }} öppna</span><span class="tag tag-neutral">{{ pendingCount }} väntar på kvittens</span></div></div>
+          <div style="margin-top:12px;border-top:2px solid var(--color-divider);padding-top:8px"><div style="display:flex;justify-content:space-between;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)"><span>Dagsrutin idag, tryck för att bocka av</span><span>{{ routineSummary }}</span></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"><sc-for list="{{ routineChips }}" as="c" hint-placeholder-count="11"><div onClick="{{ c.onPick }}" title="{{ c.title }}" style="cursor:pointer;border:2px solid var(--color-text);padding:4px 9px;font-size:13px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div></div>
+          <div style="margin-top:10px;border-top:2px solid var(--color-divider);padding-top:8px"><div style="display:flex;justify-content:space-between;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)"><span>Mål och stjärnor, tryck när Hala gjort något</span><span>{{ goalSummary }}</span></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"><sc-for list="{{ goalChips }}" as="c" hint-placeholder-count="6"><div onClick="{{ c.onPick }}" title="{{ c.title }}" style="cursor:pointer;border:2px solid var(--color-text);padding:4px 9px;font-size:13px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px"><sc-for list="{{ rewardChips }}" as="c" hint-placeholder-count="5"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:4px 9px;font-size:13px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for><div onClick="{{ undoGoal }}" style="cursor:pointer;border:2px dashed var(--color-text);padding:4px 9px;font-size:13px;font-weight:800">Ångra senaste</div></div></div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 10px"><sc-for list="{{ filterChips }}" as="f" hint-placeholder-count="8"><div onClick="{{ f.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:5px 11px;font-size:13px;font-weight:800;background:{{ f.bg }};color:{{ f.fg }}">{{ f.name }}</div></sc-for></div>
           <div style="flex:1;overflow:auto;border-top:2px solid var(--color-divider)">
             <sc-for list="{{ entryList }}" as="e" hint-placeholder-count="6">
@@ -569,9 +615,9 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
 </section>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;calendarLink&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;familyRoles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;admin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;admin&quot;,&quot;equal&quot;],&quot;section&quot;:&quot;Familjeapp&quot;},&quot;showPhotos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;menuFeedUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;webcal://p103-caldav.icloud.com/published/2/MjExNjAwNjUxMjExNjAwNoxH0ysZRYKeT6UkxGmYvxdIgrG_sNcE2rUnj0lnZnX1ad6rq0XYqQkpWKf7Daiyr8pQC_PhXpVVA286ruqTLh4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Matsedel&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;calendarLink&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;familyRoles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;admin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;admin&quot;,&quot;equal&quot;],&quot;section&quot;:&quot;Familjeapp&quot;},&quot;showPhotos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;menuFeedUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Matsedel&quot;},&quot;googleApiKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Google Kalender&quot;},&quot;googleClientId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Google Kalender&quot;},&quot;supabaseUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delade bilder&quot;},&quot;supabaseKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delade bilder&quot;},&quot;supabaseBucket&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;hala-bilder&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delade bilder&quot;}}">
 class Component extends DCLogic {
-  state = { now: new Date(), slide: 0, sec: 0, interval: 6, albums: this.loadAlbums(), target: 'hala', status: '', changed: new Date(), menu: null, menuLive: false, entries: this.loadEntries(), filter: 'alla', formCat: 'tid', formTitle: '', formDate: '', formTime: '', formNote: '', formFam: true, formTo: 'Sjuksköterska', formToName: '', gToName: '', formMsg: '', sName: '', famUser: 'Hanin', gCat: 'familj', gTo: 'Sjuksköterska', gTitle: '', gNote: '', gMsg: '', pg: 0 };
+  state = { now: new Date(), slide: 0, sec: 0, interval: 6, albums: this.loadAlbums(), target: 'hala', status: '', changed: new Date(), menu: null, menuLive: false, entries: this.loadEntries(), routine: this.loadRoutine(), goals: this.loadGoals(), cal: [], calErr: '', calLive: false, lastLink: '', editId: '', delId: '', filter: 'alla', formCat: 'tid', formTitle: '', formDate: '', formTime: '', formNote: '', formFam: true, formTo: 'Sjuksköterska', formToName: '', gToName: '', formMsg: '', sName: '', famUser: 'Hanin', gCat: 'familj', gTo: 'Sjuksköterska', gTitle: '', gNote: '', gMsg: '', pg: 0 };
   menuUrl() { return (this.props.menuFeedUrl || 'webcal://p103-caldav.icloud.com/published/2/MjExNjAwNjUxMjExNjAwNoxH0ysZRYKeT6UkxGmYvxdIgrG_sNcE2rUnj0lnZnX1ad6rq0XYqQkpWKf7Daiyr8pQC_PhXpVVA286ruqTLh4').replace(/^webcal/, 'https'); }
   loadMenu() {
     fetch('menu.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
@@ -599,9 +645,10 @@ class Component extends DCLogic {
   }
   componentDidMount() {
     this.t1 = setInterval(() => this.setState(s => ({ now: new Date(), sec: s.sec + 1, slide: (s.sec + 1) % s.interval === 0 ? s.slide + 1 : s.slide })), 1000);
-    this.onStorage = e => { if (e.key === this.EKEY) this.setState({ entries: this.loadEntries() }); if (e.key === this.KEY) this.setState({ albums: this.loadAlbums(), changed: new Date(), status: 'Nya bilder hämtade' }); };
+    this.onStorage = e => { if (e.key === this.EKEY) this.setState({ entries: this.loadEntries() }); if (e.key === this.RKEY) this.setState({ routine: this.loadRoutine() }); if (e.key === this.GKEY) this.setState({ goals: this.loadGoals() }); if (e.key === this.KEY) this.setState({ albums: this.loadAlbums(), changed: new Date(), status: 'Nya bilder hämtade' }); };
     window.addEventListener('storage', this.onStorage);
-    this.t4 = setInterval(() => this.setState(s => ({ pg: s.pg + 1 })), 12000); this.loadMenu(); this.t3 = setInterval(() => this.loadMenu(), 3600000);
+    this.t4 = setInterval(() => this.setState(s => ({ pg: s.pg + 1 })), 12000); this.loadCal(); this.t5 = setInterval(() => this.loadCal(), 900000); this.loadMenu(); this.t3 = setInterval(() => this.loadMenu(), 3600000);
+    this.syncPhotos(); this.t6 = setInterval(() => this.syncPhotos(), 300000);
   }
   componentWillUnmount() { clearInterval(this.t1); window.removeEventListener('storage', this.onStorage); }
   toggleAlbum = id => this.saveAlbums(this.state.albums.map(a => a.id === id ? { ...a, on: !a.on } : a));
@@ -621,11 +668,33 @@ class Component extends DCLogic {
     if (!files.length) return;
     this.setState({ status: 'Laddar upp ' + files.length + ' bild' + (files.length > 1 ? 'er' : '') + '…' });
     const srcs = (await Promise.all(files.map(f => this.readFile(f)))).filter(Boolean);
+    const sb = this.sb();
+    if (sb) {
+      let ok = 0;
+      for (let i = 0; i < srcs.length; i++) {
+        const blob = await (await fetch(srcs[i])).blob(), path = this.state.target + '/' + (Date.now() + i) + '_Hanin.jpg';
+        const r = await fetch(sb.u + '/storage/v1/object/' + sb.b + '/' + encodeURI(path), { method: 'POST', headers: { apikey: sb.k, Authorization: 'Bearer ' + sb.k, 'Content-Type': 'image/jpeg' }, body: blob }).catch(() => null);
+        if (r && r.ok) ok++;
+      }
+      this.setState({ status: ok + ' av ' + srcs.length + ' bilder delade med familjen' + (ok < srcs.length ? '. Kontrollera inställningarna för Supabase' : '') });
+      this.syncPhotos(); return;
+    }
     const t = Date.now();
     const added = srcs.map((src, i) => ({ src, who: 'Hanin', when: 'just nu', t: t + i }));
     const albums = this.state.albums.map(a => a.id === this.state.target ? { ...a, photos: [...added.reverse(), ...a.photos] } : a);
     this.saveAlbums(albums, srcs.length + ' bild' + (srcs.length > 1 ? 'er' : '') + ' tillagda');
   };
+  sb() { const u = (this.props.supabaseUrl || 'https://xqeuoatqwthcqowthyjg.supabase.co').trim().replace(/\/$/, ''), k = (this.props.supabaseKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxZXVvYXRxd3RoY3Fvd3RoeWpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM3NzQ2NzUsImV4cCI6MjEwOTM1MDY3NX0.F2c3UqD7vAy1CMwCsdw2HG57SUHmN7fsD-ZTpfPqIGQ').trim(); return u && k ? { u, k, b: (this.props.supabaseBucket || 'hala-bilder').trim() } : null; }
+  syncPhotos() {
+    const sb = this.sb(); if (!sb) return;
+    Promise.all(this.state.albums.map(a => fetch(sb.u + '/storage/v1/object/list/' + sb.b, { method: 'POST', headers: { apikey: sb.k, Authorization: 'Bearer ' + sb.k, 'Content-Type': 'application/json' }, body: JSON.stringify({ prefix: a.id, limit: 300, sortBy: { column: 'name', order: 'desc' } }) })
+      .then(r => r.json()).then(list => Array.isArray(list) ? list.filter(f => f.name && /\.(jpe?g|png|webp)$/i.test(f.name)).map(f => { const m = f.name.match(/^(\d+)_([^.]*)/), t = m ? +m[1] : (Date.parse(f.created_at) || 0); return { src: sb.u + '/storage/v1/object/public/' + sb.b + '/' + encodeURI(a.id + '/' + f.name), who: m ? decodeURIComponent(m[2]) : 'Familjen', when: new Date(t).toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' }), t, remote: true }; }) : null).catch(() => null)))
+      .then(res => {
+        if (res.every(x => x === null)) { this.setState({ status: 'Kunde inte nå bildlagringen' }); return; }
+        const albums = this.state.albums.map((a, i) => res[i] ? { ...a, photos: [...res[i], ...a.photos.filter(p => !p.remote)] } : a);
+        this.saveAlbums(albums, 'Bilder synkade ' + new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }));
+      });
+  }
   setIntervalSec = n => () => this.setState({ interval: n, sec: 0 });
   CATS = [
     { id: 'tid', name: 'Tid eller besök', hint: 't.ex. Sjukgymnastik eller besök av Eman' },
@@ -640,6 +709,77 @@ class Component extends DCLogic {
   FAMILY = ['Hanin', 'Ala', 'Hammed', 'Eyass', 'Eman'];
   TOS = ['Sjuksköterska', 'Kontaktperson', 'Annan'];
   EKEY = 'hala.entries.v2';
+  RKEY = 'hala.routine.v1';
+  GKEY = 'hala.goals.v1';
+  GOALS = [
+    { id: 'rehab', name: 'Träning med sjukgymnast', target: 3, stars: 3 },
+    { id: 'gang', name: 'Promenad ute', target: 4, stars: 2 },
+    { id: 'sjalv', name: 'Gå själv till matsalen', target: 7, stars: 1 },
+    { id: 'dricka', name: 'Dricka sex glas vatten', target: 7, stars: 1 },
+    { id: 'akt', name: 'Delta i en aktivitet (sång, bingo)', target: 2, stars: 2 },
+    { id: 'ring', name: 'Prata med en vän eller släkting', target: 3, stars: 1 },
+  ];
+  REWARDS = [
+    { id: 'musik', name: 'Favoritmusik och te med kardemumma', cost: 8 },
+    { id: 'fika', name: 'Fika med familjen', cost: 10 },
+    { id: 'blommor', name: 'Blommor på rummet', cost: 15 },
+    { id: 'frisor', name: 'Frisörbesök', cost: 20 },
+    { id: 'utflykt', name: 'Utflykt med familjen', cost: 40 },
+  ];
+  monday(d) { const m = new Date(d); m.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return this.isoD(m); }
+  loadGoals() {
+    const wk = this.monday(new Date());
+    try { const g = JSON.parse(localStorage.getItem(this.GKEY) || 'null'); if (g) return g.week === wk ? g : { ...g, week: wk, counts: {} }; } catch (e) {}
+    return { stars: 14, spent: 0, week: wk, counts: { rehab: 1, gang: 2, sjalv: 4, dricka: 5, akt: 1, ring: 1 }, log: [], redeemed: [] };
+  }
+  saveGoals(g, msg) { try { localStorage.setItem(this.GKEY, JSON.stringify(g)); } catch (e) {} this.setState({ goals: g, formMsg: msg || '' }); }
+  needName() { if (!this.state.sName.trim()) { this.setState({ formMsg: 'Skriv ditt namn först' }); return false; } return true; }
+  doGoal = id => {
+    if (!this.needName()) return; const g = this.state.goals, x = this.GOALS.find(q => q.id === id), c = g.counts[id] || 0;
+    if (c >= x.target) { this.setState({ formMsg: 'Veckans mål för "' + x.name + '" är redan nått' }); return; }
+    this.saveGoals({ ...g, stars: g.stars + x.stars, counts: { ...g.counts, [id]: c + 1 }, log: [...g.log, { id, who: this.state.sName.trim(), at: new Date().toISOString() }] }, '+' + x.stars + ' stjärnor för ' + x.name + ', loggat av ' + this.state.sName.trim());
+  };
+  undoGoal = () => {
+    if (!this.needName()) return; const g = this.state.goals, last = g.log[g.log.length - 1]; if (!last) { this.setState({ formMsg: 'Inget att ångra' }); return; }
+    const x = this.GOALS.find(q => q.id === last.id);
+    this.saveGoals({ ...g, stars: g.stars - x.stars, counts: { ...g.counts, [last.id]: Math.max(0, (g.counts[last.id] || 0) - 1) }, log: g.log.slice(0, -1) }, 'Ångrade senaste: ' + x.name);
+  };
+  redeem = id => {
+    if (!this.needName()) return; const g = this.state.goals, x = this.REWARDS.find(q => q.id === id);
+    if (g.stars - g.spent < x.cost) { this.setState({ formMsg: 'Inte tillräckligt med stjärnor än för ' + x.name }); return; }
+    this.saveGoals({ ...g, spent: g.spent + x.cost, redeemed: [...g.redeemed, { id, who: this.state.sName.trim(), at: new Date().toISOString() }] }, 'Löst in: ' + x.name + '. Meddela familjen via Meddelande till familjen.');
+  };
+  ROUTINE = [
+    { id: 'frukost', part: 'Morgon', t: '08:00', n: 'Frukost' }, { id: 'morgonmed', part: 'Morgon', t: '08:30', n: 'Morgonmedicin' }, { id: 'tvatt', part: 'Morgon', t: '09:00', n: 'Tvätt och påklädning' },
+    { id: 'lunch', part: 'Eftermiddag', t: '12:00', n: 'Lunch' }, { id: 'vila', part: 'Eftermiddag', t: '13:00', n: 'Vila' }, { id: 'fika', part: 'Eftermiddag', t: '15:00', n: 'Fika' }, { id: 'promenad', part: 'Eftermiddag', t: '15:30', n: 'Promenad' },
+    { id: 'middag', part: 'Kväll', t: '17:30', n: 'Middag' }, { id: 'kvallsmed', part: 'Kväll', t: '19:00', n: 'Kvällsmedicin' }, { id: 'kvallsfika', part: 'Kväll', t: '20:00', n: 'Kvällsfika' }, { id: 'natt', part: 'Kväll', t: '21:30', n: 'Läggdags' },
+  ];
+  loadRoutine() { try { const s = JSON.parse(localStorage.getItem(this.RKEY) || 'null'); if (s && s.date === this.isoD(new Date())) return s; } catch (e) {} return { date: this.isoD(new Date()), done: {} }; }
+  toggleRoutine = id => {
+    const s = this.state; if (!s.sName.trim()) { this.setState({ formMsg: 'Skriv ditt namn först' }); return; }
+    const cur = s.routine.date === this.isoD(new Date()) ? s.routine : { date: this.isoD(new Date()), done: {} }, done = { ...cur.done };
+    if (done[id]) delete done[id]; else done[id] = { who: s.sName.trim(), at: new Date().toISOString() };
+    const routine = { date: cur.date, done }; try { localStorage.setItem(this.RKEY, JSON.stringify(routine)); } catch (e) {} this.setState({ routine, formMsg: '' });
+  };
+  CALID = 'a45e5a856316a857754f99348eac8b3cdd5fd92edf48f7c88482c611816deccf@group.calendar.google.com';
+  loadCal() {
+    const key = (this.props.googleApiKey || '').trim();
+    if (key) {
+      const t0 = new Date(); t0.setHours(0, 0, 0, 0); const t1 = new Date(t0.getTime() + 45 * 864e5);
+      const u = 'https://www.googleapis.com/calendar/v3/calendars/' + encodeURIComponent(this.CALID) + '/events?singleEvents=true&orderBy=startTime&maxResults=250&timeMin=' + encodeURIComponent(t0.toISOString()) + '&timeMax=' + encodeURIComponent(t1.toISOString()) + '&key=' + encodeURIComponent(key);
+      fetch(u).then(r => r.json()).then(j => {
+        if (j.error) { this.setState({ calErr: j.error.message || 'Kalenderfel' }); return; }
+        const cal = (j.items || []).filter(x => x.status !== 'cancelled').map(x => { const s = x.start || {}, dt = s.dateTime ? new Date(s.dateTime) : null; return { id: x.id, title: x.summary || '(utan titel)', date: dt ? this.isoD(dt) : (s.date || ''), time: dt ? dt.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }) : '', where: x.location || '', recurring: !!x.recurringEventId }; }).filter(e => e.date);
+        this.setState({ cal, calErr: '', calLive: true });
+      }).catch(() => this.setState({ calErr: 'Kunde inte nå Google Kalender' }));
+      return;
+    }
+    const url = 'https://calendar.google.com/calendar/ical/a45e5a856316a857754f99348eac8b3cdd5fd92edf48f7c88482c611816deccf%40group.calendar.google.com/public/basic.ics';
+    fetch(url).then(r => r.text()).then(t => {
+      const cal = t.split('BEGIN:VEVENT').slice(1).map(b => { const g = k => ((b.match(new RegExp('\\n' + k + '[^:\\n]*:([^\\r\\n]*)')) || [])[1] || '').trim(); const d = g('DTSTART'); return { title: g('SUMMARY').replace(/\\,/g, ','), date: d.slice(0, 4) + '-' + d.slice(4, 6) + '-' + d.slice(6, 8), time: d.length > 8 ? d.slice(9, 11) + ':' + d.slice(11, 13) : '' }; }).filter(e => e.title && /^\d{4}-\d\d-\d\d$/.test(e.date));
+      if (cal.length) this.setState({ cal });
+    }).catch(() => {});
+  }
   isoD(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
   hm(iso) { const d = new Date(iso); return d.toLocaleDateString('sv-SE', { weekday: 'short' }) + ' ' + d.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }); }
   seedEntries() {
@@ -669,9 +809,65 @@ class Component extends DCLogic {
   onAdd = () => {
     const s = this.state; if (!s.sName.trim()) { this.setState({ formMsg: 'Skriv ditt namn först' }); return; } if (!s.formTitle.trim()) { this.setState({ formMsg: 'Skriv en rubrik först' }); return; }
     const to = s.formTo === 'Annan' ? (s.formToName.trim() || 'Annan') : s.formTo;
+    if (s.editId) {
+      if (!s.formDate) { this.setState({ formMsg: 'Välj datum' }); return; }
+      this.gcalCall('PATCH', s.editId, this.evBody(s.formTitle.trim(), s.formNote.trim(), s.formDate, s.formTime, s.sName.trim()), 'Ändringen sparad i Google Kalender av ' + s.sName.trim());
+      this.setState({ editId: '', formTitle: '', formDate: '', formTime: '', formNote: '' }); return;
+    }
     const e = this.mkEntry({ cat: s.formCat, title: s.formTitle.trim(), date: s.formDate, time: s.formTime, note: s.formNote.trim(), fam: s.formFam, by: s.sName.trim(), byRole: 'Personal', to });
     this.saveEntries([e, ...s.entries], 'Sparat och loggat. ' + (e.date && ['tid', 'praktiskt'].includes(e.cat) ? 'Visas på skärmsläckaren.' : ''), { formTitle: '', formDate: '', formTime: '', formNote: '', formToName: '' });
+    this.afterSave(e);
   };
+  afterSave(e) {
+    if (!(e.date && ['tid', 'praktiskt'].includes(e.cat))) { this.setState({ lastLink: '' }); return; }
+    this.setState({ lastLink: this.gcalLink(e) });
+    if ((this.props.googleClientId || '555619609817-pu5iktv7acivafocu40apji0hc6bago0.apps.googleusercontent.com').trim()) this.insertEvent(e);
+  }
+  gcalLink(e) {
+    const f = x => x.getFullYear() + String(x.getMonth() + 1).padStart(2, '0') + String(x.getDate()).padStart(2, '0') + 'T' + String(x.getHours()).padStart(2, '0') + String(x.getMinutes()).padStart(2, '0') + '00';
+    let dates; if (e.time) { const st = new Date(e.date + 'T' + e.time + ':00'); dates = f(st) + '/' + f(new Date(st.getTime() + 36e5)); } else { const nx = new Date(e.date + 'T12:00:00'); nx.setDate(nx.getDate() + 1); dates = e.date.replace(/-/g, '') + '/' + this.isoD(nx).replace(/-/g, ''); }
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.title) + '&dates=' + dates + '&ctz=Europe/Stockholm&details=' + encodeURIComponent((e.note ? e.note + '\n' : '') + 'Inlagd av ' + e.by) + '&src=' + encodeURIComponent(this.CALID);
+  }
+  evBody(title, note, date, time, by) {
+    const body = { summary: title, description: (note ? note + '\n' : '') + 'Inlagd av ' + by + ' i Halas app' };
+    if (time) { const st = new Date(date + 'T' + time + ':00'); body.start = { dateTime: st.toISOString(), timeZone: 'Europe/Stockholm' }; body.end = { dateTime: new Date(st.getTime() + 36e5).toISOString(), timeZone: 'Europe/Stockholm' }; }
+    else { const nx = new Date(date + 'T12:00:00'); nx.setDate(nx.getDate() + 1); body.start = { date }; body.end = { date: this.isoD(nx) }; }
+    return body;
+  }
+  withToken(cb) {
+    const cid = (this.props.googleClientId || '555619609817-pu5iktv7acivafocu40apji0hc6bago0.apps.googleusercontent.com').trim();
+    if (!cid) { this.setState({ formMsg: 'Lägg in OAuth-klient-ID (googleClientId) för att ändra i Google Kalender' }); return; }
+    const go = () => {
+      if (this.tok && Date.now() < this.tokExp) { cb(this.tok); return; }
+      google.accounts.oauth2.initTokenClient({ client_id: cid, scope: 'https://www.googleapis.com/auth/calendar.events', callback: resp => {
+        if (resp.error) { this.setState({ formMsg: 'Google-inloggningen avbröts' }); return; }
+        this.tok = resp.access_token; this.tokExp = Date.now() + ((resp.expires_in || 3600) - 60) * 1000; cb(this.tok);
+      } }).requestAccessToken();
+    };
+    if (window.google && google.accounts && google.accounts.oauth2) go();
+    else { const sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.onload = go; sc.onerror = () => this.setState({ formMsg: 'Kunde inte ladda Google-inloggningen' }); document.head.appendChild(sc); }
+  }
+  gcalCall(method, id, body, okMsg) {
+    this.withToken(tok => fetch('https://www.googleapis.com/calendar/v3/calendars/' + encodeURIComponent(this.CALID) + '/events' + (id ? '/' + encodeURIComponent(id) : ''), { method, headers: { Authorization: 'Bearer ' + tok, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })
+      .then(r => r.ok ? {} : r.json()).then(j => { if (j && j.error) this.setState({ formMsg: 'Google Kalender: ' + j.error.message }); else { this.setState({ formMsg: okMsg }); this.loadCal(); } })
+      .catch(() => this.setState({ formMsg: 'Kunde inte nå Google Kalender' })));
+  }
+  insertEvent(e) { this.gcalCall('POST', '', this.evBody(e.title, e.note, e.date, e.time, e.by), 'Sparat och inlagt i Google Kalender'); }
+  editCal = c => this.setState({ formCat: 'tid', formTitle: c.title, formDate: c.date, formTime: c.time, formNote: '', editId: c.id, delId: '', formMsg: 'Du ändrar "' + c.title + '". Ändra och tryck Spara. Gäller bara den här tiden.' });
+  cancelEdit = () => this.setState({ editId: '', formTitle: '', formDate: '', formTime: '', formNote: '', formMsg: '' });
+  delCal = c => {
+    if (this.state.delId !== c.id) { this.setState({ delId: c.id, formMsg: 'Tryck Ta bort igen för att ta bort "' + c.title + '" ur Google Kalender' }); return; }
+    if (!this.needName()) return;
+    this.setState({ delId: '' }); this.gcalCall('DELETE', c.id, null, 'Borttagen ur Google Kalender av ' + this.state.sName.trim());
+  };
+  liveAppts(ex, ok, nx) {
+    const s = this.state, n = new Date(), today = this.isoD(n), lim = this.isoD(new Date(n.getTime() + 21 * 864e5)), cap = x => x.charAt(0).toUpperCase() + x.slice(1);
+    const cal = s.cal.filter(c => c.date >= today && c.date <= lim).map(c => ({ date: c.date, time: c.time, title: c.title, where: c.where || (c.recurring ? 'Återkommande · Halas kalender' : 'Halas kalender'), status: 'I kalendern', cls: ok }));
+    const ents = s.entries.filter(e => e.date && ['tid', 'praktiskt'].includes(e.cat) && !e.done && e.date >= today && e.date <= lim && !s.cal.some(c => c.date === e.date && c.title === e.title)).map(e => ({ date: e.date, time: e.time, title: e.title, where: 'Inlagd av ' + e.by, status: 'Bokad av personal', cls: nx }));
+    const all = [...cal, ...ents].sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+    if (!all.length && !s.calLive) return ex;
+    return all.slice(0, 12).map(a => ({ day: cap(new Date(a.date + 'T12:00:00').toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' })), time: a.time || 'Heldag', title: a.title, where: a.where, status: a.status, cls: a.cls }));
+  }
   onSendFam = () => {
     const s = this.state; if (!s.gTitle.trim()) { this.setState({ gMsg: 'Skriv en rubrik först' }); return; }
     const e = this.mkEntry({ cat: s.gCat, title: s.gTitle.trim(), note: s.gNote.trim(), fam: true, by: s.famUser, byRole: 'Familj', to: s.gTo === 'Annan' ? (s.gToName.trim() || 'Annan') : s.gTo });
@@ -693,7 +889,7 @@ class Component extends DCLogic {
     const onScreen = e => e.date && ['tid', 'praktiskt'].includes(e.cat) && !e.done;
     const mon = new Date(n); mon.setDate(n.getDate() - ((n.getDay() + 6) % 7));
     const lunchOf = iso => (s.menu || []).find(m => m.date === iso);
-    const actsOf = iso => s.entries.filter(e => onScreen(e) && e.date === iso).sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+    const actsOf = iso => [...s.entries.filter(e => onScreen(e) && e.date === iso), ...s.cal.filter(c => c.date === iso && !s.entries.some(e => e.title === c.title && e.date === iso))].sort((a, b) => (a.time || '').localeCompare(b.time || ''));
     const weekRows = Array.from({ length: 7 }, (_, i) => {
       const d = new Date(mon); d.setDate(mon.getDate() + i); const iso = this.isoD(d), td = iso === todayIso, a = actsOf(iso), l = lunchOf(iso);
       return { dow: cap(d.toLocaleDateString('sv-SE', { weekday: 'long' })), dnum: d.getDate() + '/' + (d.getMonth() + 1), bg: td ? 'var(--color-accent)' : 'transparent', fg: td ? 'var(--color-bg)' : 'var(--color-text)',
@@ -705,8 +901,14 @@ class Component extends DCLogic {
     const fmtWhen = e => e.date ? cap(new Date(e.date + 'T12:00:00').toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' })) + (e.time ? ' ' + e.time : '') : 'Inget datum';
     const nm = () => s.sName.trim(), need = () => { if (!nm()) { this.setState({ formMsg: 'Skriv ditt namn först (uppe till vänster)' }); return false; } return true; };
     const greet = s.entries.filter(e => e.cat === 'familj' && !e.done).slice(0, 3);
-    const titles = ['Idag', 'Den här veckan', 'Veckans matsedel'].concat(greet.length ? ['Hälsningar från familjen'] : []);
-    const pi = s.pg % titles.length;
+    const pages = [['idag', 'Idag'], ['rut', 'Dagsrutin'], ['mal', 'Mina stjärnor'], ['vecka', 'Den här veckan'], ['mat', 'Veckans matsedel']].concat(greet.length ? [['hals', 'Hälsningar från familjen']] : []);
+    const pi = s.pg % pages.length, pid = pages[pi][0], titles = pages.map(p => p[1]);
+    const rt = s.routine.date === todayIso ? s.routine.done : {}, nowM = n.getHours() * 60 + n.getMinutes(), mins = t => +t.slice(0, 2) * 60 + +t.slice(3, 5);
+    const timeline = [...this.ROUTINE.map(x => ({ t: x.t, n: x.n })), ...todayActs.filter(a => a.time).map(a => ({ t: a.time, n: a.title }))].sort((a, b) => a.t.localeCompare(b.t));
+    const nowItem = [...timeline].reverse().find(x => mins(x.t) <= nowM), nextItem = timeline.find(x => mins(x.t) > nowM);
+    const routineCols = ['Morgon', 'Eftermiddag', 'Kväll'].map(part => ({ part, items: this.ROUTINE.filter(x => x.part === part).map(x => ({ t: x.t, n: x.n, mark: rt[x.id] ? '✓' : '', op: rt[x.id] ? 0.55 : 1, deco: rt[x.id] ? 'line-through' : 'none' })) }));
+    const routineChips = this.ROUTINE.map(x => ({ name: (rt[x.id] ? '✓ ' : '') + x.t + ' ' + x.n, bg: rt[x.id] ? 'var(--color-accent)' : 'transparent', fg: rt[x.id] ? 'var(--color-bg)' : 'var(--color-text)', onPick: () => this.toggleRoutine(x.id), title: rt[x.id] ? 'Av ' + rt[x.id].who + ' ' + this.hm(rt[x.id].at) : '' }));
+    const routineDone = this.ROUTINE.filter(x => rt[x.id]).length;
     const pending = s.entries.filter(e => !e.done && status(e).color === 'var(--color-clay)').length;
     const entryList = sorted.filter(e => f === 'alla' || e.cat === f).map(e => { const st = status(e), needAck = e.to && !ackOf(e);
       return { catName: cname(e.cat), when: fmtWhen(e), from: e.by, toTxt: e.to, title: e.title, note: e.note, hasNote: !!e.note, op: e.done ? 0.5 : 1, deco: e.done ? 'line-through' : 'none',
@@ -718,7 +920,15 @@ class Component extends DCLogic {
       return { catName: cname(e.cat), from: e.by, title: e.title, note: e.note, hasNote: !!e.note, status: r ? 'Läst av ' + r.who + ' ' + this.hm(r.at) : 'Ej läst', statusColor: r ? 'var(--color-accent-700)' : 'var(--color-clay)', canRead: !r, onRead: () => this.logEv(e.id, 'Läst av familjen', s.famUser, 'Familj') }; });
     return {
       lunchToday: lt ? lt.lunch : 'Ingen meny inlagd', hasAlt: !!(lt && lt.alt), lunchAlt: lt ? lt.alt : '', todayActs, noTodayActs: !todayActs.length, weekRows,
-      pageTitle: titles[pi], dots: titles.map((t, i) => ({ bg: i === pi ? 'var(--color-text)' : 'transparent' })), p0: pi === 0, p1: pi === 1, p2: pi === 2, p3: pi === 3,
+      pageTitle: titles[pi], dots: titles.map((t, i) => ({ bg: i === pi ? 'var(--color-text)' : 'transparent' })), p0: pid === 'idag', pRut: pid === 'rut', pMal: pid === 'mal',
+      balance: (s.goals.stars - s.goals.spent) + ' ★', goalSummary: (s.goals.stars - s.goals.spent) + ' ★ att använda',
+      goalRows: this.GOALS.map(x => { const c = s.goals.counts[x.id] || 0; return { name: x.name, sq: Array.from({ length: x.target }, (_, i) => i < c ? '■' : '□').join(' '), stars: '+' + x.stars + ' ★', op: c >= x.target ? 0.55 : 1 }; }),
+      rewardRows: this.REWARDS.map(x => { const bal = s.goals.stars - s.goals.spent, ok = bal >= x.cost; return { name: x.name, cost: x.cost + ' ★', status: ok ? 'Kan lösas in' : (x.cost - bal) + ' kvar', bg: ok ? 'var(--color-accent)' : 'transparent', fg: ok ? 'var(--color-bg)' : 'var(--color-text)' }; }),
+      nextReward: (() => { const bal = s.goals.stars - s.goals.spent, nx = this.REWARDS.find(x => x.cost > bal); return nx ? 'Nästa belöning: ' + nx.name + ', ' + (nx.cost - bal) + ' stjärnor kvar' : 'Alla belöningar kan lösas in'; })(),
+      goalChips: this.GOALS.map(x => { const c = s.goals.counts[x.id] || 0, d = c >= x.target; return { name: x.name + ' ' + c + '/' + x.target, bg: d ? 'var(--color-accent)' : 'transparent', fg: d ? 'var(--color-bg)' : 'var(--color-text)', onPick: () => this.doGoal(x.id), title: '+' + x.stars + ' stjärnor' }; }),
+      rewardChips: this.REWARDS.map(x => { const ok = s.goals.stars - s.goals.spent >= x.cost; return { name: 'Lös in: ' + x.name + ' (' + x.cost + ' ★)', bg: ok ? 'var(--color-clay)' : 'transparent', fg: ok ? 'var(--color-bg)' : 'var(--color-neutral-600)', onPick: () => this.redeem(x.id), title: '' }; }),
+      undoGoal: this.undoGoal, p1: pid === 'vecka', p2: pid === 'mat', p3: pid === 'hals',
+      nowTxt: nowItem ? nowItem.n : 'Natt', nextTxt: nextItem ? nextItem.t + ' ' + nextItem.n : 'Inget mer idag', routineCols, routineChips, routineSummary: routineDone + ' av ' + this.ROUTINE.length + ' klara idag',
       greetings: greet.map(g => ({ title: g.title, by: g.by })),
       sName: s.sName, onSName: e => this.setState({ sName: e.target.value }), annanOn: s.formTo === 'Annan', formToName: s.formToName, onToName: e => this.setState({ formToName: e.target.value }), gAnnanOn: s.gTo === 'Annan', gToName: s.gToName, onGToName: e => this.setState({ gToName: e.target.value }),
       catChips: C.map(c => chip(c.name, c.id === s.formCat, () => this.setState({ formCat: c.id }))),
@@ -731,7 +941,9 @@ class Component extends DCLogic {
       famChips: this.FAMILY.map(n2 => chip(n2, n2 === s.famUser, () => this.setState({ famUser: n2 }))), famName: s.famUser,
       gCatChips: C.map(c => chip(c.name, c.id === s.gCat, () => this.setState({ gCat: c.id }))), gToChips: this.TOS.map(t => chip(t, t === s.gTo, () => this.setState({ gTo: t }))),
       gHint: gcur.hint, gTitle: s.gTitle, gNote: s.gNote, gMsg: s.gMsg, hasGMsg: !!s.gMsg, onGTitle: e => this.setState({ gTitle: e.target.value }), onGNote: e => this.setState({ gNote: e.target.value }), onSendFam: this.onSendFam,
-      sentList: sent, inbox,
+      sentList: sent, inbox, isEditing: !!s.editId, cancelEdit: this.cancelEdit,
+      calList: s.cal.filter(c => c.id && c.date >= todayIso).slice(0, 8).map(c => ({ title: c.title, when: cap(new Date(c.date + 'T12:00:00').toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' })) + (c.time ? ' ' + c.time : '') + (c.recurring ? ' · återkommande' : ''), delLabel: s.delId === c.id ? 'Säker? Tryck igen' : 'Ta bort', onEdit: () => this.editCal(c), onDel: () => this.delCal(c) })),
+      hasCalList: s.cal.some(c => c.id && c.date >= todayIso), lastLink: s.lastLink, hasLink: !!s.lastLink,
     };
   }
   renderVals() {
@@ -784,11 +996,12 @@ class Component extends DCLogic {
       const sel = i === 1, has = [1, 3, 4].includes(i);
       return { dow: d, n: 2 + i, bg: sel ? 'var(--color-accent)' : 'transparent', fg: sel ? 'var(--color-bg)' : 'var(--color-text)', dot: has ? (sel ? 'var(--color-bg)' : 'var(--color-accent)') : 'transparent' };
     });
-    const appts = [
+    const apptsEx = [
       { day: 'Tis 3 nov', time: '14:00', title: 'Sjukgymnastik', where: 'Träningsrummet, plan 1', status: 'Bekräftad', cls: ok },
       { day: 'Tors 5 nov', time: '10:30', title: 'Husläkare Dr. Svensson', where: 'Vårdcentralen Fosie · transport bokad', status: 'Bekräftad', cls: ok },
       { day: 'Fre 6 nov', time: '13:00', title: 'Fotvård', where: 'Förfrågan från Eman', status: 'Väntar på personalen', cls: nx },
     ];
+    const appts = this.liveAppts(apptsEx, ok, nx);
     const feed = [
       { who: 'Maria · Undersköterska', nameColor: 'var(--color-accent-700)', when: '10:12', photo: true, text: 'Hala åt hela frukosten och vi tog en promenad i trädgården. Hon var på gott humör.' },
       { who: 'Hanin', nameColor: 'var(--color-text)', when: '10:40', text: 'Tack Maria, hon älskar trädgården. Hälsa att jag ringer ikväll.' },
