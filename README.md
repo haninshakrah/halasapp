@@ -1,29 +1,57 @@
-# halasapp
-Jag har gjort en nedladdningsbar mapp, github-upload, med rätt filer och uppdaterat manualen med ett nytt avsnitt 0, "Börja från noll". Jag har inte testat uppladdningen eller sett manualen i förhandsvisningen.  Kort version  Skapa en ny publik repo som heter halasapp. Kryssa i Add a README file. 
+# Halas vård- och omsorgsapp
 
-#Manual
-Halas vård och omsorgsapp
-Så ändrar du appen och tar den i bruk. Adress: haninshakrah.github.io/halasapp · Repo: github.com/haninshakrah/halasapp
-0. Börja från noll: ny repo i 5 steg
-Du behöver mappen github-upload (ladda ner den från Claude och packa upp den). Den innehåller allt utom arbetsflödesfilen, som du skapar direkt på GitHub i steg 3.
+**Manual för att ändra appen och ta den i bruk**
 
-#Steg 1. Skapa repon
-Gå till github.com, tryck + uppe till höger och välj New repository.
-Namn: halasapp. Välj Public. Kryssa i Add a README file så att repon inte är tom. Tryck Create repository.
+- **Webbplats:** [haninshakrah.github.io/halasapp](https://haninshakrah.github.io/halasapp/)
+- **Repository:** [github.com/haninshakrah/halasapp](https://github.com/haninshakrah/halasapp)
 
-#Steg 2. Ladda upp filerna
-I repon, tryck Add file och Upload files.
-Öppna mappen github-upload på din dator. Markera allt som ligger inuti den (index.html, menu.json, support.js, ios-frame.jsx, _ds, uploads, scripts). Dra det hela in i webbläsaren. Dra inte själva mappen github-upload.
-Använd Chrome eller Edge, de kan ta emot mappar. Vänta tills alla filer är uppladdade (de är ungefär 30 stycken).
-Tryck Commit changes längst ned.
-Kontrollera: startsidan ska visa index.html, menu.json och mapparna _ds, scripts och uploads direkt, utan någon mapp som heter github-upload eller Family care coordination app. Är det fel, radera repon och börja om.
+> [!TIP]
+> Följ avsnitten i ordning om du sätter upp appen för första gången. Använd innehållsförteckningen för att hoppa direkt till ett ämne.
 
-#Steg 3. Skapa arbetsflödet (för menyn)
-Dolda mappar som .github följer ofta inte med vid uppladdning, så den här filen skapas på GitHub.
+## Innehåll
 
-Tryck Add file och Create new file.
-Skriv i namnfältet exakt: .github/workflows/update-menu.yml (snedstrecken skapar mapparna).
-Klistra in texten nedan, tryck Commit changes och sedan Commit changes igen.
+- [0. Börja från noll: skapa en ny repo](#0-börja-från-noll-skapa-en-ny-repo)
+- [1. Vad finns i repon?](#1-vad-finns-i-repon)
+- [2. Små ändringar själv](#2-små-ändringar-själv)
+- [3. Större ändringar med Claude](#3-större-ändringar-med-claude)
+- [4. Bilder](#4-bilder)
+- [5. Lunchmenyn](#5-lunchmenyn)
+- [6. Ta appen i bruk](#6-ta-appen-i-bruk)
+- [7. Viktigt innan ni börjar använda appen](#7-viktigt-innan-ni-börjar-använda-appen)
+- [8. Rekommenderad ordning](#8-rekommenderad-ordning)
+- [9. Felsökning](#9-felsökning)
+
+## 0. Börja från noll: skapa en ny repo
+
+Du behöver mappen `github-upload`. Ladda ner den från Claude och packa upp den. Den innehåller appfilerna, men inte arbetsflödesfilen. Den skapar du direkt på GitHub i steg 3.
+
+### Steg 1: Skapa repon
+
+1. Gå till [github.com](https://github.com), tryck på **+** uppe till höger och välj **New repository**.
+2. Skriv `halasapp` som namn och välj **Public**.
+3. Kryssa i **Add a README file** så att repon inte är tom.
+4. Tryck på **Create repository**.
+
+### Steg 2: Ladda upp filerna
+
+1. I repon, välj **Add file** och sedan **Upload files**.
+2. Öppna mappen `github-upload` på datorn. Markera allt som ligger **inuti** mappen: `index.html`, `menu.json`, `support.js`, `ios-frame.jsx`, `_ds`, `uploads` och `scripts`.
+3. Dra de markerade filerna och mapparna till webbläsaren. Dra inte själva mappen `github-upload`.
+4. Använd Chrome eller Edge, som kan ta emot mappar. Vänta tills alla filer har laddats upp (ungefär 30 filer).
+5. Tryck på **Commit changes** längst ned.
+
+**Kontrollera uppladdningen:** startsidan i repon ska visa `index.html`, `menu.json` och mapparna `_ds`, `scripts` och `uploads` direkt. Där ska inte finnas en extra mapp som heter `github-upload` eller `Family care coordination app`. Om filerna hamnade i en sådan mapp behöver du flytta upp dem till reponens rot.
+
+### Steg 3: Skapa arbetsflödet för menyn
+
+Dolda mappar som `.github` följer ofta inte med vid uppladdning. Skapa därför arbetsflödesfilen direkt på GitHub:
+
+1. Tryck på **Add file** och välj **Create new file**.
+2. Skriv exakt detta i namnfältet: `.github/workflows/update-menu.yml`. Snedstrecken skapar mapparna.
+3. Klistra in hela texten nedan.
+4. Tryck på **Commit changes** och sedan på **Commit changes** igen.
+
+```yaml
 name: Uppdatera matsedel
 on:
   schedule:
@@ -45,121 +73,153 @@ jobs:
           git config user.email "menu-bot@users.noreply.github.com"
           git add menu.json
           git diff --cached --quiet || (git commit -m "Uppdaterad matsedel" && git push)
+```
 
-#Steg 4. Slå på webbplatsen
-Settings, sedan Pages i vänstermenyn.
-Under Build and deployment: välj Deploy from a branch, branch main, mapp / (root). Tryck Save.
-Efter 1–2 minuter visas adressen högst upp: https://haninshakrah.github.io/halasapp/. Öppna den.
+### Steg 4: Slå på webbplatsen
 
-#Steg 5. Ge arbetsflödet skrivrätt och kör det
-Settings, Actions, General. Under Workflow permissions välj Read and write permissions och tryck Save.
-Gå till fliken Actions. Tryck på den gröna knappen om GitHub frågar om att slå på arbetsflöden.
-Välj Uppdatera matsedel, Run workflow, Run workflow. Grön bock efter en stund betyder att det fungerar.
-Om sidan inte syns: kontrollera att Pages-körningen under Actions är grön, att index.html ligger i roten och ladda om med Ctrl+Skift+R.
+1. Öppna **Settings** och välj **Pages** i vänstermenyn.
+2. Under **Build and deployment** väljer du **Deploy from a branch**.
+3. Välj branch `main` och mapp `/ (root)`, och tryck på **Save**.
+4. Efter 1–2 minuter visas webbplatsens adress högst upp. Öppna [https://haninshakrah.github.io/halasapp/](https://haninshakrah.github.io/halasapp/).
 
-1. Vad finns i repon
-index.html
-Hela appen: familjeappen, skärmsläckaren, personalvyn. Det är den här filen du ändrar.
-menu.json
-Lunchmenyn. Skrivs över automatiskt, ändra inte för hand.
-uploads/
-Bilder till albumen.
-scripts/update-menu.mjs
-Hämtar menyn från Malmö stads sida.
-.github/workflows/update-menu.yml
-Kör skriptet varje måndag och torsdag.
-support.js, ios-frame.jsx, _ds/
-Krävs för att appen ska visas. Ta inte bort.
-2. Små ändringar själv
-Gäller text, namn, kategorier och tider.
+### Steg 5: Ge arbetsflödet skrivrätt och kör det
 
-Öppna repon på github.com och klicka på index.html.
-Klicka på pennan (Edit this file) uppe till höger.
-Klicka i texten och tryck Ctrl+F (Cmd+F på Mac). Sök på det du vill ändra.
-Ändra texten. Rör inte tecken som , < > eller citattecken runt orden.
-Tryck Commit changes, skriv en kort beskrivning och tryck Commit changes igen.
-Vänta ungefär en minut. Ladda om sidan med Ctrl+Skift+R (Cmd+Skift+R).
-Sökord för vanliga ändringar
-FAMILY =
-Familjemedlemmarnas namn i 4c.
-CATS =
-Kategorierna (Inköp, Hämta medicin, Övrigt med flera). Varje rad har id, namn och exempeltext.
-TOS =
-Mottagarknapparna: Sjuksköterska, Kontaktperson, Annan.
-12000
-Hur ofta skärmsläckaren byter sida, i millisekunder. 12000 är 12 sekunder, 20000 är 20 sekunder.
-Fosieborgs
-Boendets namn.
-seedEntries
-Exempelposterna. Radera raderna för att starta med en tom lista.
-Gick något fel: öppna filen, välj History och sedan en äldre version. Tryck ⋯ och Revert eller kopiera tillbaka innehållet.
+1. Öppna **Settings → Actions → General**.
+2. Under **Workflow permissions** väljer du **Read and write permissions** och trycker på **Save**.
+3. Gå till fliken **Actions**. Om GitHub frågar om att slå på arbetsflöden trycker du på den gröna knappen.
+4. Välj **Uppdatera matsedel → Run workflow → Run workflow**.
+5. En grön bock efter en stund betyder att arbetsflödet har fungerat.
 
-#3. Större ändringar med Claude
-Gäller nya skärmar, ny layout, nya funktioner eller flera ändringar samtidigt.
+> [!TIP]
+> Om sidan inte syns: kontrollera att Pages-körningen under **Actions** är grön, att `index.html` ligger i reponens rot och ladda om sidan med **Ctrl+Skift+R**.
 
-Öppna projektet Family care coordination app i Claude.
-Skriv vad du vill ha ändrat, helst en sak i taget. Exempel: "Lägg till kategorin Frisör" eller "Gör texten på skärmsläckaren större".
-Granska resultatet i förhandsvisningen. Säg till om något ska justeras.
-Be Claude: "Skapa en ny index.html av senaste versionen". Ladda ner filen.
-Ersätt filen i repon: öppna repon, välj Add file, Upload files, dra in den nya index.html i roten och tryck Commit changes. Den gamla filen ersätts.
-Vänta en minut och ladda om sidan utan cache.
-Gör inte ändringar både på GitHub och i Claude samtidigt. Då skriver den nya filen över dina ändringar på GitHub. Lägg i så fall in ändringen i Claude, eller be Claude om den på nytt.
+## 1. Vad finns i repon?
 
-#4. Bilder
-Öppna mappen uploads i repon. Välj Add file, Upload files, dra in bilderna och tryck Commit changes.
-Bilderna visas först när de finns i bildlistan i index.html. Be Claude lägga in dem, eller sök på uploads/ och kopiera en befintlig rad.
-Använd bilder under 500 kB och undvik å, ä och ö i filnamnen.
-Repon är publik. Lägg inte upp privata eller känsliga bilder.
+| Fil eller mapp | Vad den används till |
+| --- | --- |
+| `index.html` | Hela appen: familjeappen, skärmsläckaren och personalvyn. Det är den här filen du ändrar. |
+| `menu.json` | Lunchmenyn. Filen skrivs över automatiskt – ändra den inte för hand. |
+| `uploads/` | Bilder till albumen. |
+| `scripts/update-menu.mjs` | Hämtar menyn från Malmö stads sida. |
+| `.github/workflows/update-menu.yml` | Kör menyskriptet varje måndag och torsdag. |
+| `support.js`, `ios-frame.jsx`, `_ds/` | Behövs för att appen ska visas. Ta inte bort dem. |
 
-#5. Lunchmenyn
-Menyn hämtas varje måndag och torsdag. Appen läser menu.json varje timme.
-Kör den direkt: Actions, Uppdatera matsedel, Run workflow, Run workflow.
-Rött kryss: öppna körningen och läs felet. "Hittade ingen meny" betyder att Malmö stad ändrat sin sida. Skicka felet till Claude.
-Står det "Permission denied": Settings, Actions, General, Workflow permissions, välj Read and write permissions och spara.
-Menyn är en vecka bakom när Malmö stad publicerar sent. Då syns den gamla menyn.
+## 2. Små ändringar själv
 
-#6. Ta appen i bruk
-Surfplattan på väggen
-Öppna adressen i surfplattans webbläsare.
-iPad: välj Dela, Lägg till på hemskärmen och öppna därifrån, så försvinner adressfältet. Android: välj Installera app eller Lägg till på startskärmen.
-Slå av skärmlåset: Inställningar, Skärm, Automatisk låsning på Aldrig. Sätt surfplattan på laddning.
-iPad: slå på Guidad åtkomst (Tillgänglighet) så att ingen kan lämna sidan av misstag. Android: använd en kioskapp, till exempel Fully Kiosk Browser.
-Sidan visar tid och datum själv. Den byter sida var 12:e sekund och behöver inga tryck.
-Personalen
-Samma adress, vyn "Personal" (4b). Skriv namn, välj kategori och mottagare, och spara.
-Den som tar emot trycker Kvittera. Namn, dag och tid loggas på posten.
-Poster med datum i Tid eller besök och Praktiskt visas på skärmsläckaren.
-Familjen
-Samma adress, vyn "Familj" (4c). Välj namn, kategori och mottagare.
-Familjen ser om personalen kvitterat och trycker själv "Kvittera läst".
-Kalendern är Halas Google-kalender. Alla med länken kan lägga in tider.
+Det här passar för ändringar av text, namn, kategorier och tider.
 
-#7. Att veta innan ni börjar använda den på riktigt
-Poster delas inte mellan enheter. Det som personalen skriver in syns bara i webbläsaren på den enhet där det skrevs. Surfplattan, personalens telefoner och familjens telefoner ser alltså olika listor. Kvittenserna och loggen gäller på samma sätt bara på den enheten.
-Lösning: Koppla in en gemensam databas, till exempel Firebase eller Supabase. Be Claude om det. Du behöver då skapa ett gratis konto och klistra in en nyckel.
-Ingen inloggning och inga aviseringar. Alla som har adressen kan läsa och skriva. Adressen är öppen på internet.
-Känsliga uppgifter. Skriv inte personnummer, diagnoser eller medicinuppgifter i appen innan databas, inloggning och regler för personuppgifter finns på plats. Prata med boendet om vad som får registreras.
-Inga albumuppladdningar från telefoner. Bilder läggs in via repon.
+1. Öppna repon på GitHub och klicka på `index.html`.
+2. Klicka på pennan (**Edit this file**) uppe till höger.
+3. Klicka i texten och tryck **Ctrl+F** (eller **Cmd+F** på Mac). Sök efter det du vill ändra.
+4. Ändra texten. Rör inte tecken som `,`, `<`, `>` eller citattecknen runt orden.
+5. Tryck på **Commit changes**, skriv en kort beskrivning och tryck på **Commit changes** igen.
+6. Vänta ungefär en minut och ladda om sidan utan cache: **Ctrl+Skift+R** (eller **Cmd+Skift+R** på Mac).
 
-#8. Rekommenderad ordning
-Skapa repon och lägg upp filerna (avsnitt 0).
-Kontrollera att menyflödet fungerar och att menu.json uppdateras (avsnitt 0, steg 5 och avsnitt 5).
-Ta bort exempelposterna (sök på seedEntries) och byt namn och bilder till era egna.
-Prova flödet själv: skicka som familj i 4c, kvittera som personal i 4b och kontrollera loggen.
-Ställ in surfplattan (avsnitt 6).
-Be Claude koppla in en gemensam databas, så att alla ser samma poster.
-Be om inloggning och aviseringar när databasen fungerar.
+### Sökord för vanliga ändringar
 
-#9. Felsökning
-Sidan visar gammalt innehåll
-Ladda om utan cache (Ctrl+Skift+R). Kontrollera under Actions att "pages build and deployment" är grön.
-Sidan är tom
-Gå till History för index.html och återställ senaste fungerande version.
-Bilder saknas
-Kontrollera att filen ligger i uploads och att namnet i listan stämmer exakt, inklusive stor och liten bokstav.
-Kalendern visar inloggning
-I Google Kalender: Inställningar, Åtkomstbehörigheter, slå på "Gör tillgänglig för allmänheten".
-Menyn visar "Exempeldata"
-Kontrollera att menu.json ligger i roten av repon och kör menyflödet.
-Kvittera gör inget
-Skriv ditt namn i namnfältet först.
+| Sök efter | Ändrar |
+| --- | --- |
+| `FAMILY =` | Familjemedlemmarnas namn i vyn 4c. |
+| `CATS =` | Kategorierna, till exempel Inköp, Hämta medicin och Övrigt. Varje rad har id, namn och exempeltext. |
+| `TOS =` | Mottagarknapparna: Sjuksköterska, Kontaktperson och Annan. |
+| `12000` | Hur ofta skärmsläckaren byter sida, i millisekunder. `12000` är 12 sekunder och `20000` är 20 sekunder. |
+| `Fosieborgs` | Boendets namn. |
+| `seedEntries` | Exempelposterna. Ta bort raderna för att starta med en tom lista. |
+
+**Om något går fel:** öppna filen, välj **History** och leta upp en äldre version. Tryck på **⋯** och välj **Revert**, eller kopiera tillbaka innehållet från den äldre versionen.
+
+## 3. Större ändringar med Claude
+
+Använd det här arbetssättet för nya skärmar, ny layout, nya funktioner eller flera ändringar samtidigt.
+
+1. Öppna projektet **Family care coordination app** i Claude.
+2. Beskriv vad du vill ändra, helst en sak i taget. Exempel: ”Lägg till kategorin Frisör” eller ”Gör texten på skärmsläckaren större”.
+3. Granska resultatet i förhandsvisningen och be om justeringar vid behov.
+4. Be Claude: ”Skapa en ny `index.html` av senaste versionen”. Ladda ner filen.
+5. Ersätt filen i repon: välj **Add file → Upload files**, dra in den nya `index.html` i reponens rot och tryck på **Commit changes**. Den gamla filen ersätts.
+6. Vänta en minut och ladda om sidan utan cache.
+
+> [!WARNING]
+> Ändra inte både på GitHub och i Claude samtidigt. Den nya filen från Claude kan skriva över ändringarna på GitHub. Lägg i så fall in ändringen i Claude eller be Claude göra om den.
+
+## 4. Bilder
+
+1. Öppna mappen `uploads` i repon.
+2. Välj **Add file → Upload files**, dra in bilderna och tryck på **Commit changes**.
+3. Lägg till bilderna i bildlistan i `index.html` för att de ska visas. Be Claude lägga in dem, eller sök på `uploads/` och kopiera en befintlig rad.
+
+- Använd bilder som är mindre än 500 kB.
+- Undvik `å`, `ä` och `ö` i filnamnen.
+
+> [!CAUTION]
+> Repon är publik. Lägg inte upp privata eller känsliga bilder.
+
+## 5. Lunchmenyn
+
+- Menyn hämtas varje måndag och torsdag.
+- Appen läser `menu.json` varje timme.
+- Kör hämtningen direkt via **Actions → Uppdatera matsedel → Run workflow → Run workflow**.
+
+**Om det blir fel:**
+
+- **Rött kryss:** öppna körningen och läs felet. ”Hittade ingen meny” betyder att Malmö stad kan ha ändrat sin sida. Skicka felet till Claude.
+- **”Permission denied”:** gå till **Settings → Actions → General → Workflow permissions**, välj **Read and write permissions** och spara.
+- **Menyn ligger en vecka efter:** Malmö stad kan ha publicerat den nya menyn sent. Då visas den gamla menyn tills nästa uppdatering.
+
+## 6. Ta appen i bruk
+
+### Surfplattan på väggen
+
+1. Öppna appens adress i surfplattans webbläsare.
+2. **iPad:** välj **Dela → Lägg till på hemskärmen** och öppna appen därifrån för att dölja adressfältet.
+3. **Android:** välj **Installera app** eller **Lägg till på startskärmen**.
+4. Stäng av skärmlåset via **Inställningar → Skärm → Automatisk låsning → Aldrig** och låt surfplattan stå på laddning.
+5. **iPad:** slå på Guidad åtkomst under Tillgänglighet så att ingen råkar lämna sidan. **Android:** använd en kioskapp, till exempel Fully Kiosk Browser.
+
+Sidan visar själv tid och datum. Den byter sida var 12:e sekund och behöver inga tryck.
+
+### Personalen
+
+- Öppna samma adress och välj vyn **Personal** (4b).
+- Skriv namn, välj kategori och mottagare och spara.
+- Mottagaren trycker på **Kvittera**. Namn, dag och tid loggas på posten.
+- Poster med datum i **Tid eller besök** och **Praktiskt** visas på skärmsläckaren.
+
+### Familjen
+
+- Öppna samma adress och välj vyn **Familj** (4c).
+- Välj namn, kategori och mottagare.
+- Familjen kan se om personalen har kvitterat och trycker själv på **Kvittera läst**.
+- Kalendern är Halas Google-kalender. Alla som har länken kan lägga in tider.
+
+## 7. Viktigt innan ni börjar använda appen
+
+> [!IMPORTANT]
+> Appen är i nuläget inte en gemensam eller inloggningsskyddad tjänst. Tänk på begränsningarna nedan innan den används i verksamheten.
+
+- **Poster delas inte mellan enheter.** Det personalen skriver in syns bara i webbläsaren på enheten där det skrevs. Surfplattan, personalens telefoner och familjens telefoner får därför olika listor.
+  - **Möjlig lösning:** koppla in en gemensam databas, till exempel Firebase eller Supabase. Be Claude om hjälp. Du behöver skapa ett gratis konto och klistra in en nyckel.
+- **Ingen inloggning eller aviseringar.** Alla som har adressen kan läsa och skriva. Adressen är öppen på internet.
+- **Känsliga uppgifter:** skriv inte personnummer, diagnoser eller medicinuppgifter i appen innan databas, inloggning och regler för personuppgifter finns på plats. Prata med boendet om vad som får registreras.
+- **Inga albumuppladdningar från telefoner.** Bilder läggs in via repon.
+
+## 8. Rekommenderad ordning
+
+1. Skapa repon och lägg upp filerna (avsnitt 0).
+2. Kontrollera att menyflödet fungerar och att `menu.json` uppdateras (avsnitt 0, steg 5, och avsnitt 5).
+3. Ta bort exempelposterna (sök på `seedEntries`) och byt namn och bilder till era egna.
+4. Prova flödet: skicka en post som familj i 4c, kvittera som personal i 4b och kontrollera loggen.
+5. Ställ in surfplattan (avsnitt 6).
+6. Be Claude koppla in en gemensam databas så att alla ser samma poster.
+7. Be om inloggning och aviseringar när databasen fungerar.
+
+## 9. Felsökning
+
+| Problem | Kontrollera eller gör så här |
+| --- | --- |
+| Sidan visar gammalt innehåll | Ladda om utan cache (**Ctrl+Skift+R**). Kontrollera under **Actions** att **pages build and deployment** är grön. |
+| Sidan är tom | Gå till **History** för `index.html` och återställ den senaste fungerande versionen. |
+| Bilder saknas | Kontrollera att filen ligger i `uploads` och att namnet i bildlistan stämmer exakt, inklusive stora och små bokstäver. |
+| Kalendern visar inloggning | I Google Kalender: öppna **Inställningar → Åtkomstbehörigheter** och slå på **Gör tillgänglig för allmänheten**. |
+| Menyn visar ”Exempeldata” | Kontrollera att `menu.json` ligger i reponens rot och kör menyflödet. |
+| Kvittera gör inget | Skriv ditt namn i namnfältet först. |
