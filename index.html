@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/modernist-6cdc2057-5947-417f-ab1a-0c1cba987553/styles.css">
+<style>
+:root{--color-bg:#f1ece1;--color-surface:#e6dfce;--color-text:#2b2a22;--color-accent:#577a3a;--color-accent-2:#b4532f;--color-clay:#a8472a;
+--color-divider:color-mix(in srgb,#2b2a22 40%,transparent);
+--color-neutral-100:#f6f2e9;--color-neutral-200:#e8e1d1;--color-neutral-300:#d4cbb6;--color-neutral-400:#b8ad94;--color-neutral-500:#998d75;--color-neutral-600:#7c715b;--color-neutral-700:#5f5645;--color-neutral-800:#433d31;--color-neutral-900:#2d2921;
+--color-accent-100:#eff3e6;--color-accent-200:#dbe5c8;--color-accent-300:#bccfa0;--color-accent-400:#94b06f;--color-accent-500:#6f8f4b;--color-accent-600:#496b2f;--color-accent-700:#3a5428;--color-accent-800:#2f411e;--color-accent-900:#202c15;
+--shadow-lg:0 12px 32px color-mix(in srgb,#2d2921 22%,transparent)}
+body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
+</helmet>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx android-frame.jsx" hint-size="0,0" style="display:none"></x-import>
+<section style="padding:64px;font-family:var(--font-body);color:var(--color-text)">
+  <div style="max-width:1100px;margin-bottom:48px">
+    <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Utkast 1</div>
+    <h1 style="font-size:48px;margin:8px 0 12px">Hala Shakrahs vård och omsorgsapp</h1>
+    <p style="font-size:16px;max-width:640px;margin:0;color:var(--color-neutral-700)">Familjen följer Halas dag på distans. Personalen på Fosieborgs äldreboende loggar vård, bokningar och uppdateringar. Hanin är administratör; Ala, Hammed, Eyass och Eman kan se och skriva.</p>
+  </div>
+
+  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:16px;border-top:2px solid var(--color-divider);padding-top:12px">Familjeappen · iPhone</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;margin-bottom:72px">
+
+    <div id="1a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1a</span>Hem</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
+          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Vård och omsorg</div>
+            <h1 style="font-size:34px;margin:4px 0 2px">Hala Shakrah</h1>
+            <div style="font-size:13px;color:var(--color-neutral-700)">Fosieborgs äldreboende · Lindeborgsgatan</div>
+            <div style="height:2px;background:var(--color-divider);margin:16px 0 12px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div style="font-size:14px;font-weight:800">Tisdag 3 november</div>
+              <span class="tag tag-neutral">Lugn dag hittills</span>
+            </div>
+            <sc-if value="{{ showPhotos }}"><sc-if value="{{ hasLatest }}" hint-placeholder-val="{{ false }}"><img src="{{ latestSrc }}" alt="Senaste bild" style="display:block;width:100%;height:190px;object-fit:cover;object-position:center 25%" />
+            <div style="font-size:12px;color:var(--color-neutral-700);margin:6px 0 18px">Senaste bild · {{ latestCaption }}</div></sc-if></sc-if>
+
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;border-top:2px solid var(--color-divider);padding-top:10px">Idag</div>
+            <sc-for list="{{ today }}" as="r" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:52px 1fr auto;gap:8px;align-items:center;padding:11px 0;border-bottom:1px solid var(--color-divider);font-size:14px">
+                <span style="font-weight:800">{{ r.time }}</span><span>{{ r.what }}</span><span class="tag {{ r.cls }}">{{ r.status }}</span>
+              </div>
+            </sc-for>
+
+            <div style="margin-top:18px;border-top:2px solid var(--color-divider);padding-top:10px">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Nästa läkarbesök</div>
+              <div style="font-size:18px;font-weight:800;margin:4px 0 2px">Torsdag 5 november, 10:30</div>
+              <div style="font-size:13px;color:var(--color-neutral-700)">Husläkare Dr. Svensson · Vårdcentralen Fosie</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;margin-top:18px;border:2px solid var(--color-divider)">
+              <div style="padding:14px 12px;border-right:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);font-size:14px;font-weight:800">Skriv till personalen</div>
+              <div style="padding:14px 12px;border-bottom:1px solid var(--color-divider);font-size:14px;font-weight:800">Be om besök</div>
+              <div style="padding:14px 12px;border-right:1px solid var(--color-divider);font-size:14px;font-weight:800">Lämna önskemål</div>
+              <div style="padding:14px 12px;font-size:14px;font-weight:800">Se personal</div>
+            </div>
+          </div>
+          <dc-import name="TabBar" active="hem" hint-size="402,86"></dc-import>
+        </div>
+      </x-import>
+    </div>
+
+    <div id="1b" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1b</span>Kalender</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
+          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+            <h1 style="font-size:34px;margin:0 0 2px">Kalender</h1>
+            <div style="font-size:13px;color:var(--color-neutral-700)">November 2026 · Vecka 45</div>
+            <div style="height:2px;background:var(--color-divider);margin:16px 0 0"></div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);border-bottom:2px solid var(--color-divider)">
+              <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+                <div style="padding:10px 0 10px 6px;border-right:1px solid var(--color-divider);background:{{ d.bg }};color:{{ d.fg }}">
+                  <div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase">{{ d.dow }}</div>
+                  <div style="font-size:20px;font-weight:800">{{ d.n }}</div>
+                  <div style="width:6px;height:6px;margin-top:4px;background:{{ d.dot }}"></div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-for list="{{ appts }}" as="a" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:64px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--color-divider)">
+                <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-neutral-700)">{{ a.day }}</div><div style="font-size:18px;font-weight:800">{{ a.time }}</div></div>
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+                  <div style="font-size:16px;font-weight:800">{{ a.title }}</div>
+                  <div style="font-size:13px;color:var(--color-neutral-700)">{{ a.where }}</div>
+                  <span class="tag {{ a.cls }}">{{ a.status }}</span>
+                </div>
+              </div>
+            </sc-for>
+            <button class="btn btn-primary btn-block" style="margin-top:20px;padding:12px 16px;font-size:15px">Be om nytt besök</button>
+            <div style="font-size:12px;color:var(--color-neutral-700);margin-top:8px">Förfrågan skickas till personalen som bokar och bekräftar tiden.</div>
+            <sc-if value="{{ calendarLink }}">
+              <div style="margin-top:20px;border-top:2px solid var(--color-divider);padding-top:12px">
+                <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Delad kalender</div>
+                <div style="font-size:14px;line-height:1.45;margin:4px 0 8px">Halas Google-kalender. Alla i familjen kan se och uppdatera den.</div>
+                <iframe title="Halas kalender" src="https://calendar.google.com/calendar/embed?src=a45e5a856316a857754f99348eac8b3cdd5fd92edf48f7c88482c611816deccf%40group.calendar.google.com&mode=AGENDA&hl=sv&ctz=Europe%2FStockholm&showTitle=0&showNav=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23f3f2f2" style="width:100%;height:360px;border:2px solid var(--color-divider);background:var(--color-bg);display:block;margin-bottom:8px"></iframe>
+                <a class="btn btn-secondary btn-block" style="margin-top:0" href="https://calendar.google.com/calendar/u/0?cid=YTQ1ZTVhODU2MzE2YTg1Nzc1NGY5OTM0OGVhYzhiM2NkZDVmZDkyZWRmNDhmN2M4ODQ4MmM2MTE4MTZkZWNjZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener">Redigera i Google Kalender</a>
+              </div>
+            </sc-if>
+          </div>
+          <dc-import name="TabBar" active="kalender" hint-size="402,86"></dc-import>
+        </div>
+      </x-import>
+    </div>
+
+    <div id="1c" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1c</span>Meddelanden</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
+          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+            <h1 style="font-size:34px;margin:0 0 12px">Meddelanden</h1>
+            <div class="seg" style="width:100%">
+              <label class="seg-opt" style="flex:1;background:var(--color-accent);color:var(--color-bg)">Alla</label>
+              <label class="seg-opt" style="flex:1">Personal</label>
+              <label class="seg-opt" style="flex:1">Familjen</label>
+            </div>
+            <sc-for list="{{ feed }}" as="m" hint-placeholder-count="4">
+              <div style="margin-top:18px;padding-top:12px;border-top:2px solid var(--color-divider)">
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px">
+                  <span style="font-weight:800;color:{{ m.nameColor }}">{{ m.who }}</span><span style="color:var(--color-neutral-700)">{{ m.when }}</span>
+                </div>
+                <sc-if value="{{ m.photo }}">
+                  <div style="height:130px;margin-bottom:8px;background:repeating-linear-gradient(135deg,var(--color-neutral-300) 0 10px,var(--color-neutral-200) 10px 20px);display:flex;align-items:flex-end;padding:8px"><span style="font-family:ui-monospace,monospace;font-size:11px;background:var(--color-bg);padding:3px 8px">Foto från personalen</span></div>
+                </sc-if>
+                <div style="font-size:15px;line-height:1.5">{{ m.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:8px;padding:10px 20px;border-top:2px solid var(--color-divider)">
+            <input class="input" placeholder="Skriv till personalen" style="flex:1" />
+            <button class="btn btn-primary">Skicka</button>
+          </div>
+          <dc-import name="TabBar" active="meddelanden" hint-size="402,86"></dc-import>
+        </div>
+      </x-import>
+    </div>
+
+    <div id="1d" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1d</span>Aviseringar</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
+          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+            <h1 style="font-size:34px;margin:0 0 2px">Aviseringar</h1>
+            <div style="font-size:13px;color:var(--color-neutral-700)">Fall och olyckor, ändrad vårdplan, läkarbesök</div>
+            <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="4">
+              <div style="margin-top:16px;border-top:2px solid var(--color-divider);padding-top:12px;display:grid;grid-template-columns:6px 1fr;gap:12px">
+                <div style="background:{{ a.bar }}"></div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:{{ a.kcolor }}">{{ a.kind }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ a.when }}</span></div>
+                  <div style="font-size:16px;font-weight:800;margin-bottom:4px">{{ a.title }}</div>
+                  <div style="font-size:14px;line-height:1.45;color:var(--color-neutral-800)">{{ a.text }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <dc-import name="TabBar" active="aviseringar" hint-size="402,86"></dc-import>
+        </div>
+      </x-import>
+    </div>
+
+    <div id="1e" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1e</span>Personal och familj</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
+          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+            <h1 style="font-size:34px;margin:0 0 16px">Personal</h1>
+            <sc-for list="{{ staff }}" as="p" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px 0;border-top:1px solid var(--color-divider)">
+                <div><div style="font-size:16px;font-weight:800">{{ p.name }}</div><div style="font-size:13px;color:var(--color-neutral-700)">{{ p.role }} · {{ p.shift }}</div></div>
+                <div style="display:flex;gap:8px"><button class="btn btn-secondary">Ring</button><button class="btn btn-secondary">Skriv</button></div>
+              </div>
+            </sc-for>
+            <h1 style="font-size:26px;margin:28px 0 4px;border-top:2px solid var(--color-divider);padding-top:16px">Familjen</h1>
+            <div style="font-size:13px;color:var(--color-neutral-700);margin-bottom:8px">Hanin styr vem som har åtkomst.</div>
+            <sc-for list="{{ family }}" as="f" hint-placeholder-count="5">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--color-divider)">
+                <span style="font-size:16px;font-weight:800">{{ f.name }}</span><span class="tag {{ f.cls }}">{{ f.role }}</span>
+              </div>
+            </sc-for>
+            <button class="btn btn-secondary btn-block" style="margin-top:12px">Bjud in familjemedlem</button>
+          </div>
+          <dc-import name="TabBar" active="personal" hint-size="402,86"></dc-import>
+        </div>
+      </x-import>
+    </div>
+  </div>
+
+  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:16px;border-top:2px solid var(--color-divider);padding-top:12px">Personalappen · surfplatta och Android</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
+
+    <div id="1f" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1f</span>Daglogg · surfplatta</div>
+      <div style="width:1040px;height:720px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:200px 1fr 290px;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
+        <div style="border-right:2px solid var(--color-divider);padding:24px 16px;display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Personal</div>
+          <div style="font-size:20px;font-weight:800;margin-bottom:20px">Fosieborg</div>
+          <div style="padding:10px 8px;background:var(--color-accent);color:var(--color-bg);font-weight:800;font-size:14px">Daglogg</div>
+          <div style="padding:10px 8px;font-size:14px">Läkemedel</div>
+          <div style="padding:10px 8px;font-size:14px">Bokningar</div>
+          <div style="padding:10px 8px;font-size:14px">Uppdateringar</div>
+          <div style="padding:10px 8px;font-size:14px">Händelser</div>
+          <div style="margin-top:auto;font-size:12px;color:var(--color-neutral-700)">Inloggad som<br><b style="color:var(--color-text)">Maria Lindqvist</b><br>Undersköterska, dag</div>
+        </div>
+        <div style="padding:24px 28px;overflow:hidden">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end">
+            <div><div style="font-size:13px;color:var(--color-neutral-700)">Tisdag 3 november · Rum 214</div><h2 style="font-size:32px;margin:0">Hala Shakrah</h2></div>
+            <span class="tag tag-neutral">3 av 7 klara</span>
+          </div>
+          <div style="height:2px;background:var(--color-divider);margin:14px 0 4px"></div>
+          <div style="display:grid;grid-template-columns:70px 1fr 130px 110px;gap:8px;align-items:center;padding:8px;border-bottom:2px solid var(--color-divider);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-700)"><span>Tid</span><span>Insats</span><span>Ansvarig</span><span>Status</span></div><sc-for list="{{ care }}" as="c" hint-placeholder-count="7"><div style="display:grid;grid-template-columns:70px 1fr 130px 110px;gap:8px;align-items:center;padding:9px 8px;border-bottom:1px solid var(--color-divider);font-size:14px"><span style="font-weight:800">{{ c.time }}</span><span>{{ c.what }}<div style="font-size:12px;color:var(--color-neutral-700)">{{ c.note }}</div></span><span>{{ c.who }}</span><span><span class="tag {{ c.cls }}">{{ c.status }}</span></span></div></sc-for>
+        </div>
+        <div style="border-left:2px solid var(--color-divider);padding:24px 20px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Anteckning</div>
+          <div class="field"><label>Mående</label><textarea class="input" style="min-height:110px">Glad på morgonen, åt hela frukosten och promenerade i trädgården.</textarea></div>
+          <div class="field"><label>Syns för familjen</label>
+            <div class="seg"><label class="seg-opt" style="background:var(--color-accent);color:var(--color-bg)">Ja</label><label class="seg-opt">Nej</label></div>
+          </div>
+          <button class="btn btn-primary btn-block">Spara anteckning</button>
+          <div style="height:2px;background:var(--color-divider)"></div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800">Önskemål från familjen</div>
+          <div style="font-size:14px;line-height:1.45">Hanin: Hala tycker om te med kardemumma till eftermiddagsfikat.</div>
+          <button class="btn btn-secondary btn-block">Markera som läst</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="1g" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1g</span>Ny uppdatering · Android</div>
+      <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" width="{{ 412 }}" height="{{ 892 }}" title="Ny uppdatering" hint-size="412,892">
+        <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px;font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);min-height:100%">
+          <div style="font-size:13px;color:var(--color-neutral-700)">Till familjen om Hala Shakrah</div>
+          <div class="field"><label>Meddelande</label><textarea class="input" style="min-height:130px">Hala deltog i sångstunden i matsalen och sjöng med.</textarea></div>
+          <div style="height:180px;background:repeating-linear-gradient(135deg,var(--color-neutral-300) 0 10px,var(--color-neutral-200) 10px 20px);display:flex;align-items:flex-end;padding:10px"><span style="font-family:ui-monospace,monospace;font-size:11px;background:var(--color-bg);padding:3px 8px">Foto bifogat · visas i svartvitt</span></div>
+          <div style="display:flex;gap:8px"><button class="btn btn-secondary" style="flex:1">Ta foto</button><button class="btn btn-secondary" style="flex:1">Välj från album</button></div>
+          <div class="field"><label>Mottagare</label>
+            <div class="seg" style="width:100%"><label class="seg-opt" style="flex:1;background:var(--color-accent);color:var(--color-bg)">Hela familjen</label><label class="seg-opt" style="flex:1">Bara Hanin</label></div>
+          </div>
+          <button class="btn btn-primary btn-block" style="padding:13px 16px;font-size:15px">Publicera</button>
+        </div>
+      </x-import>
+    </div>
+
+    <div id="1h" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1h</span>Händelse och vitalparametrar · Android</div>
+      <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" width="{{ 412 }}" height="{{ 892 }}" title="Händelse och mätvärden" hint-size="412,892">
+        <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px;font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);min-height:100%">
+          <div class="field"><label>Typ av händelse</label>
+            <div class="seg" style="width:100%"><label class="seg-opt" style="flex:1;background:var(--color-accent);color:var(--color-bg)">Fall</label><label class="seg-opt" style="flex:1">Vårdplan</label><label class="seg-opt" style="flex:1">Annat</label></div>
+          </div>
+          <div class="field"><label>Beskrivning</label><textarea class="input" style="min-height:90px">Hala halkade vid sängkanten kl. 06:40. Ingen synlig skada. Sjuksköterska kontaktad.</textarea></div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;border-top:2px solid var(--color-divider);padding-top:12px">Mätvärden</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="field"><label>Blodtryck</label><input class="input" value="132/84" /></div>
+            <div class="field"><label>Puls</label><input class="input" value="72" /></div>
+            <div class="field"><label>Temperatur</label><input class="input" value="36,8 °C" /></div>
+            <div class="field"><label>Syremättnad</label><input class="input" value="96 %" /></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:12px;font-size:14px"><span>Avisera familjen direkt</span><span class="tag tag-accent">På</span></div>
+          <button class="btn btn-primary btn-block" style="padding:13px 16px;font-size:15px">Spara och skicka</button>
+        </div>
+      </x-import>
+    </div>
+  </div>
+
+  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Halas skärmsläckare · surfplatta i rummet</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
+
+    <div id="2a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2a</span>Skärmsläckare</div>
+      <div style="width:1040px;height:720px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:440px 1fr;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
+        <div style="display:grid;grid-template-rows:auto 1fr auto;border-right:2px solid var(--color-divider)">
+          <div style="padding:36px 32px 0">
+            <div style="font-size:30px;font-weight:800;letter-spacing:-.01em">{{ weekday }}</div>
+            <div style="font-size:22px;color:var(--color-neutral-700)">{{ dateLine }}</div>
+          </div>
+          <div style="display:flex;align-items:center;padding:0 24px">
+            <div style="font-family:var(--font-heading);font-weight:800;font-size:164px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums">{{ clock }}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--color-divider)">
+            <div style="padding:20px 32px;border-right:1px solid var(--color-divider)">
+              <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Vecka</div>
+              <div style="font-size:56px;font-weight:800;line-height:1.05">{{ weekNo }}</div>
+            </div>
+            <div style="padding:20px 32px">
+              <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Idag</div>
+              <div style="font-size:22px;font-weight:800;line-height:1.2;margin-top:6px">Sjukgymnastik<br>kl. 14:00</div>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;display:grid;grid-template-rows:1fr auto">
+          <div style="position:relative;overflow:hidden;background:var(--color-neutral-900);min-height:0">
+            <sc-if value="{{ hasSlides }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ slideSrc }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(28px) brightness(.55);transform:scale(1.15)" />
+              <img src="{{ slideSrc }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain" />
+              <span style="position:absolute;top:16px;right:16px;font-size:13px;font-weight:800;background:var(--color-bg);padding:4px 10px">{{ slideNo }} / {{ slideTotal }}</span>
+            </sc-if>
+            <sc-if value="{{ noSlides }}"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-300);font-size:20px">Inga album är påslagna</div></sc-if>
+          </div>
+          <div style="padding:16px 24px;border-top:2px solid var(--color-divider);display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+              <div style="font-size:26px;font-weight:800">{{ slideWho }}</div>
+              <div style="font-size:15px;color:var(--color-neutral-700)">{{ slideGroup }} · {{ slideWhen }}</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
+                <div style="flex:1;height:6px;background:{{ d.bg }}"></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2b" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2b</span>Album (familjeappen)</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+          <h1 style="font-size:34px;margin:0 0 2px">Album</h1>
+          <div style="font-size:13px;color:var(--color-neutral-700)">Delas av hela familjen · syns på Halas skärmsläckare</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 12px">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+              <div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:6px 12px;font-size:13px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div>
+            </sc-for>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--color-divider);padding:10px 0"><span style="font-size:16px;font-weight:800">{{ curName }}</span><span style="font-size:13px;color:var(--color-neutral-700)">{{ curCount }} bilder</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+            <sc-for list="{{ grid }}" as="p" hint-placeholder-count="0">
+              <img src="{{ p.src }}" title="{{ p.title }}" alt="" style="display:block;width:100%;aspect-ratio:1;object-fit:cover" />
+            </sc-for>
+          </div>
+          <label class="btn btn-primary btn-block" style="margin-top:16px;cursor:pointer;text-align:center">Lägg till bilder i {{ curName }}<input type="file" accept="image/*" multiple="{{ true }}" onChange="{{ onFiles }}" style="display:none" /></label>
+          <sc-if value="{{ hasStatus }}"><div style="font-size:13px;font-weight:800;color:var(--color-accent-700);margin-top:8px">{{ status }}</div></sc-if>
+        </div>
+      </x-import>
+    </div>
+
+    <div id="2c" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2c</span>Skärmsläckare · inställningar (familjeappen)</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+          <h1 style="font-size:34px;margin:0 0 2px">Skärmsläckare</h1>
+          <div style="font-size:13px;color:var(--color-neutral-700)">Visas på surfplattan i Halas rum</div>
+          <div style="height:2px;background:var(--color-divider);margin:16px 0 12px"></div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Album som visas</div>
+          <div style="font-size:13px;color:var(--color-neutral-700);margin:4px 0 8px">Tryck för att slå på eller av ett album på skärmsläckaren.</div>
+          <sc-for list="{{ albums }}" as="g" hint-placeholder-count="4">
+            <div onClick="{{ g.onToggle }}" style="cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px 0;border-top:1px solid var(--color-divider)">
+              <div><div style="font-size:16px;font-weight:800">{{ g.name }}</div><div style="font-size:13px;color:var(--color-neutral-700)">{{ g.meta }}</div></div>
+              <span class="tag {{ g.cls }}">{{ g.state }}</span>
+            </div>
+          </sc-for>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);margin-top:20px;border-top:2px solid var(--color-divider);padding-top:12px">Ladda upp bilder</div>
+          <div class="field" style="margin-top:8px"><label>Till album</label><select class="input" value="{{ target }}" onChange="{{ onPickTarget }}"><sc-for list="{{ albumOptions }}" as="o" hint-placeholder-count="4"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></div>
+          <label class="btn btn-primary btn-block" style="margin-top:10px;cursor:pointer;text-align:center">Välj bilder från telefonen<input type="file" accept="image/*" multiple="{{ true }}" onChange="{{ onFiles }}" style="display:none" /></label>
+          <sc-if value="{{ hasStatus }}"><div style="font-size:13px;font-weight:800;color:var(--color-accent-700);margin-top:8px">{{ status }}</div></sc-if>
+          <div style="font-size:12px;color:var(--color-neutral-700);margin-top:6px">Alla i familjen kan ladda upp. Skärmsläckaren och appen uppdateras direkt. Senast ändrat {{ changedAt }}.</div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);margin-top:24px;border-top:2px solid var(--color-divider);padding-top:12px">Visning</div>
+          <div class="field" style="margin-top:8px"><label>Byt bild var</label>
+            <div class="seg" style="width:100%"><sc-for list="{{ intervals }}" as="i" hint-placeholder-count="4"><label onClick="{{ i.onPick }}" class="seg-opt" style="flex:1;cursor:pointer;background:{{ i.bg }};color:{{ i.fg }}">{{ i.label }}</label></sc-for></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--color-divider);margin-top:16px;padding-top:12px;font-size:14px"><span>Visa vem som skickat bilden</span><span class="tag tag-accent">På</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--color-divider);margin-top:12px;padding-top:12px;font-size:14px"><span>Visa dagens aktivitet</span><span class="tag tag-accent">På</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--color-divider);margin-top:12px;padding-top:12px;font-size:14px"><span>Starta efter</span><span style="font-weight:800">2 min utan beröring</span></div>
+        </div>
+      </x-import>
+    </div>
+  </div>
+
+  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Halas surfplatta · skärmsläckare och personalvy</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;margin-bottom:72px">
+
+    <div id="4a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4a</span>Skärmsläckare · bläddrar själv var 12:e sekund</div>
+      <div style="width:1280px;height:800px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:430px 1fr;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
+        <div style="display:grid;grid-template-rows:auto 1fr auto;border-right:2px solid var(--color-divider);background:var(--color-surface)">
+          <div style="padding:40px 32px 0">
+            <div style="font-size:48px;font-weight:800;letter-spacing:-.01em;line-height:1.05">{{ weekday }}</div>
+            <div style="font-size:28px;margin-top:6px">{{ dateLine }}</div>
+          </div>
+          <div style="display:flex;align-items:center;padding:0 24px">
+            <div style="font-family:var(--font-heading);font-weight:800;font-size:150px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums">{{ clock }}</div>
+          </div>
+          <div style="padding:20px 32px;border-top:2px solid var(--color-divider);display:flex;align-items:baseline;gap:14px">
+            <div style="font-size:18px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Vecka</div>
+            <div style="font-size:64px;font-weight:800;line-height:1">{{ weekNo }}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-rows:auto 1fr;min-height:0">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:22px 36px 16px;border-bottom:2px solid var(--color-divider)">
+            <div style="font-size:30px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--color-accent-700)">{{ pageTitle }}</div>
+            <div style="display:flex;gap:10px"><sc-for list="{{ dots }}" as="d" hint-placeholder-count="4"><div style="width:16px;height:16px;border:2px solid var(--color-text);background:{{ d.bg }}"></div></sc-for></div>
+          </div>
+          <div style="min-height:0;overflow:hidden">
+            <sc-if value="{{ p0 }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:32px 36px;display:flex;flex-direction:column;gap:36px">
+                <div>
+                  <div style="font-size:18px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-neutral-700)">Lunch</div>
+                  <div style="font-size:42px;font-weight:800;line-height:1.2;margin-top:8px">{{ lunchToday }}</div>
+                  <sc-if value="{{ hasAlt }}" hint-placeholder-val="{{ false }}"><div style="font-size:26px;line-height:1.3;margin-top:10px;color:var(--color-neutral-800)">Alternativ: {{ lunchAlt }}</div></sc-if>
+                </div>
+                <div>
+                  <div style="font-size:18px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-neutral-700)">Aktiviteter idag</div>
+                  <sc-if value="{{ noTodayActs }}" hint-placeholder-val="{{ false }}"><div style="font-size:42px;font-weight:800;margin-top:8px">Inget inbokat</div></sc-if>
+                  <sc-for list="{{ todayActs }}" as="a" hint-placeholder-count="0">
+                    <div style="display:grid;grid-template-columns:130px 1fr;gap:8px;margin-top:10px;font-size:42px;font-weight:800;line-height:1.2"><span>{{ a.time }}</span><span>{{ a.title }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p1 }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:grid;grid-template-rows:repeat(7,1fr)">
+                <sc-for list="{{ weekRows }}" as="r" hint-placeholder-count="7">
+                  <div style="display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;padding:0 36px;border-top:1px solid var(--color-divider);background:{{ r.bg }};color:{{ r.fg }}">
+                    <div style="font-size:26px;font-weight:800">{{ r.dow }} <span style="font-weight:400;font-size:22px">{{ r.dnum }}</span></div>
+                    <div style="font-size:24px;line-height:1.25;font-weight:800">{{ r.acts }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p2 }}" hint-placeholder-val="{{ false }}">
+              <div style="height:100%;display:grid;grid-template-rows:repeat(7,1fr)">
+                <sc-for list="{{ weekRows }}" as="r" hint-placeholder-count="7">
+                  <div style="display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;padding:0 36px;border-top:1px solid var(--color-divider);background:{{ r.bg }};color:{{ r.fg }}">
+                    <div style="font-size:26px;font-weight:800">{{ r.dow }}</div>
+                    <div style="font-size:21px;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical"><b>{{ r.lunch }}</b></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p3 }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:32px 36px;display:flex;flex-direction:column;gap:28px">
+                <sc-for list="{{ greetings }}" as="g" hint-placeholder-count="0">
+                  <div><div style="font-size:38px;font-weight:800;line-height:1.2">{{ g.title }}</div><div style="font-size:24px;margin-top:6px;color:var(--color-neutral-800)">Från {{ g.by }}</div></div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="4b" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4b</span>Personal · lägg in, kvittera och se loggen</div>
+      <div style="width:1280px;height:800px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:470px 1fr;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
+        <div style="border-right:2px solid var(--color-divider);padding:20px 28px;display:flex;flex-direction:column;gap:12px;overflow:auto">
+          <div class="field"><label>Ditt namn (avsändare och den som kvitterar)</label><input class="input" style="font-size:18px;padding:11px" placeholder="t.ex. Maria" value="{{ sName }}" onChange="{{ onSName }}" /></div>
+          <div class="field"><label>Kategori</label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ catChips }}" as="c" hint-placeholder-count="7"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:8px 12px;font-size:15px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
+          </div>
+          <div class="field"><label>Rubrik</label><input class="input" style="font-size:18px;padding:11px" placeholder="{{ titleHint }}" value="{{ formTitle }}" onChange="{{ onTitle }}" /></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="field"><label>Datum</label><input class="input" type="date" style="font-size:17px;padding:11px" value="{{ formDate }}" onChange="{{ onDate }}" /></div>
+            <div class="field"><label>Tid</label><input class="input" type="time" style="font-size:17px;padding:11px" value="{{ formTime }}" onChange="{{ onTime }}" /></div>
+          </div>
+          <div class="field"><label>Anteckning</label><textarea class="input" style="min-height:64px;font-size:16px;padding:11px" value="{{ formNote }}" onChange="{{ onNote }}"></textarea></div>
+          <div class="field"><label>Till (ska kvittera)</label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ toChips }}" as="c" hint-placeholder-count="3"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:8px 14px;font-size:16px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
+            <sc-if value="{{ annanOn }}" hint-placeholder-val="{{ false }}"><input class="input" style="font-size:17px;padding:10px;margin-top:8px" placeholder="Namn eller funktion, t.ex. Eva i köket" value="{{ formToName }}" onChange="{{ onToName }}" /></sc-if>
+          </div>
+          <div class="field"><label>Visa för familjen</label>
+            <div class="seg" style="width:100%"><label onClick="{{ setFamYes }}" class="seg-opt" style="flex:1;cursor:pointer;padding:11px;font-size:16px;background:{{ famYesBg }};color:{{ famYesFg }}">Ja, familjen kvitterar läst</label><label onClick="{{ setFamNo }}" class="seg-opt" style="flex:1;cursor:pointer;padding:11px;font-size:16px;background:{{ famNoBg }};color:{{ famNoFg }}">Bara personal</label></div>
+          </div>
+          <button class="btn btn-primary btn-block" style="padding:14px 16px;font-size:18px" onClick="{{ onAdd }}">Spara och logga</button>
+          <sc-if value="{{ hasFormMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px;font-weight:800;color:var(--color-accent-700)">{{ formMsg }}</div></sc-if>
+        </div>
+        <div style="padding:20px 28px;display:flex;flex-direction:column;min-height:0">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><h2 style="font-size:30px;margin:0">Att hålla koll på</h2><div style="display:flex;gap:8px"><span class="tag tag-neutral">{{ openCount }} öppna</span><span class="tag tag-neutral">{{ pendingCount }} väntar på kvittens</span></div></div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 10px"><sc-for list="{{ filterChips }}" as="f" hint-placeholder-count="8"><div onClick="{{ f.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:5px 11px;font-size:13px;font-weight:800;background:{{ f.bg }};color:{{ f.fg }}">{{ f.name }}</div></sc-for></div>
+          <div style="flex:1;overflow:auto;border-top:2px solid var(--color-divider)">
+            <sc-for list="{{ entryList }}" as="e" hint-placeholder-count="6">
+              <div style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;padding:12px 4px;border-bottom:1px solid var(--color-divider);opacity:{{ e.op }}">
+                <div>
+                  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="tag tag-neutral">{{ e.catName }}</span><span style="font-size:14px;color:var(--color-neutral-700)">{{ e.when }}</span><span style="font-size:14px;font-weight:800">{{ e.from }} → {{ e.toTxt }}</span></div>
+                  <div style="font-size:19px;font-weight:800;margin-top:4px;text-decoration:{{ e.deco }}">{{ e.title }}</div>
+                  <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px;color:var(--color-neutral-800);margin-top:2px">{{ e.note }}</div></sc-if>
+                  <sc-if value="{{ e.hasStatus }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;font-weight:800;margin-top:4px;color:{{ e.statusColor }}">{{ e.status }}</div></sc-if>
+                  <div style="font-size:12px;color:var(--color-neutral-700);margin-top:2px">{{ e.trail }}</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;align-items:stretch">
+                  <sc-if value="{{ e.showAck }}" hint-placeholder-val="{{ false }}"><button class="btn {{ e.ackCls }}" style="padding:9px 14px;font-size:14px" onClick="{{ e.onAck }}">{{ e.ackLabel }}</button></sc-if>
+                  <button class="btn btn-secondary" style="padding:9px 14px;font-size:14px" onClick="{{ e.onDone }}">{{ e.doneLabel }}</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="4c" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4c</span>Familj · skicka till personalen och kvittera</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+          <h1 style="font-size:32px;margin:0 0 10px">Till personalen</h1>
+          <div class="field"><label>Du är</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ famChips }}" as="c" hint-placeholder-count="5"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:6px 10px;font-size:14px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
+          </div>
+          <div class="field" style="margin-top:12px"><label>Kategori</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ gCatChips }}" as="c" hint-placeholder-count="7"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:6px 10px;font-size:14px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
+          </div>
+          <div class="field" style="margin-top:12px"><label>Till</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ gToChips }}" as="c" hint-placeholder-count="5"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:6px 10px;font-size:14px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
+            <sc-if value="{{ gAnnanOn }}" hint-placeholder-val="{{ false }}"><input class="input" style="margin-top:6px" placeholder="Namn eller funktion" value="{{ gToName }}" onChange="{{ onGToName }}" /></sc-if>
+          </div>
+          <div class="field" style="margin-top:12px"><label>Rubrik</label><input class="input" placeholder="{{ gHint }}" value="{{ gTitle }}" onChange="{{ onGTitle }}" /></div>
+          <div class="field" style="margin-top:12px"><label>Meddelande</label><textarea class="input" style="min-height:70px" value="{{ gNote }}" onChange="{{ onGNote }}"></textarea></div>
+          <button class="btn btn-primary btn-block" style="margin-top:12px" onClick="{{ onSendFam }}">Skicka som {{ famName }}</button>
+          <sc-if value="{{ hasGMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;font-weight:800;margin-top:8px;color:var(--color-accent-700)">{{ gMsg }}</div></sc-if>
+
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);margin:24px 0 4px;border-top:2px solid var(--color-divider);padding-top:12px">Skickat av familjen</div>
+          <sc-for list="{{ sentList }}" as="e" hint-placeholder-count="3">
+            <div style="padding:10px 0;border-top:1px solid var(--color-divider)">
+              <div style="font-size:12px;color:var(--color-neutral-700)">{{ e.catName }} · till {{ e.to }}</div>
+              <div style="font-size:16px;font-weight:800">{{ e.title }}</div>
+              <div style="font-size:13px;font-weight:800;color:{{ e.statusColor }}">{{ e.status }}</div>
+              <div style="font-size:11px;color:var(--color-neutral-700);margin-top:2px">{{ e.trail }}</div>
+            </div>
+          </sc-for>
+
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);margin:24px 0 4px;border-top:2px solid var(--color-divider);padding-top:12px">Från personalen</div>
+          <sc-for list="{{ inbox }}" as="e" hint-placeholder-count="3">
+            <div style="padding:10px 0;border-top:1px solid var(--color-divider)">
+              <div style="font-size:12px;color:var(--color-neutral-700)">{{ e.catName }} · {{ e.from }}</div>
+              <div style="font-size:16px;font-weight:800">{{ e.title }}</div>
+              <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px">{{ e.note }}</div></sc-if>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px"><span style="font-size:13px;font-weight:800;color:{{ e.statusColor }}">{{ e.status }}</span><sc-if value="{{ e.canRead }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" style="padding:8px 12px;font-size:13px" onClick="{{ e.onRead }}">Kvittera läst</button></sc-if></div>
+            </div>
+          </sc-for>
+        </div>
+      </x-import>
+    </div>
+  </div>
+
+  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Matsedel från boendet</div>
+  <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
+    <div id="3a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">3a</span>Matsedel</div>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+          <h1 style="font-size:34px;margin:0 0 2px">Matsedel</h1>
+          <div style="font-size:13px;color:var(--color-neutral-700)">Fosieborgs äldreboende · veckans mat</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;border-top:2px solid var(--color-divider);padding-top:10px">
+            <span class="tag {{ menuTagCls }}">{{ menuStatus }}</span>
+            <span style="font-size:12px;color:var(--color-neutral-700)">Uppdateras löpande</span>
+          </div>
+          <sc-for list="{{ menuDays }}" as="d" hint-placeholder-count="5">
+            <div style="padding:14px 0;border-top:{{ d.rule }}">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:18px;font-weight:800">{{ d.day }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ d.date }}</span></div>
+              <sc-for list="{{ d.items }}" as="m" hint-placeholder-count="2">
+                <div style="display:grid;grid-template-columns:64px 1fr;gap:8px;margin-top:6px;font-size:14px;line-height:1.4"><span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);padding-top:2px">{{ m.meal }}</span><span>{{ m.what }}</span></div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <div style="font-size:12px;color:var(--color-neutral-700);margin-top:8px">Källa: Malmö stads restauranger för seniorer. Dagens lunch 99 kr, serveras 11.30–14.00. Med reservation för ändringar. Allergier och önskemål lägger du i Meddelanden.</div>
+        </div>
+      </x-import>
+    </div>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;calendarLink&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;familyRoles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;admin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;admin&quot;,&quot;equal&quot;],&quot;section&quot;:&quot;Familjeapp&quot;},&quot;showPhotos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;menuFeedUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;webcal://p103-caldav.icloud.com/published/2/MjExNjAwNjUxMjExNjAwNoxH0ysZRYKeT6UkxGmYvxdIgrG_sNcE2rUnj0lnZnX1ad6rq0XYqQkpWKf7Daiyr8pQC_PhXpVVA286ruqTLh4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Matsedel&quot;}}">
+class Component extends DCLogic {
+  state = { now: new Date(), slide: 0, sec: 0, interval: 6, albums: this.loadAlbums(), target: 'hala', status: '', changed: new Date(), menu: null, menuLive: false, entries: this.loadEntries(), filter: 'alla', formCat: 'tid', formTitle: '', formDate: '', formTime: '', formNote: '', formFam: true, formTo: 'Sjuksköterska', formToName: '', gToName: '', formMsg: '', sName: '', famUser: 'Hanin', gCat: 'familj', gTo: 'Sjuksköterska', gTitle: '', gNote: '', gMsg: '', pg: 0 };
+  menuUrl() { return (this.props.menuFeedUrl || 'webcal://p103-caldav.icloud.com/published/2/MjExNjAwNjUxMjExNjAwNoxH0ysZRYKeT6UkxGmYvxdIgrG_sNcE2rUnj0lnZnX1ad6rq0XYqQkpWKf7Daiyr8pQC_PhXpVVA286ruqTLh4').replace(/^webcal/, 'https'); }
+  loadMenu() {
+    fetch('menu.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
+      if (j.days && j.days.length) this.setState({ menu: j.days, menuLive: true, menuUpdated: j.pageUpdated });
+    }).catch(() => {});
+  }
+  KEY = 'hala.albums.v2';
+  seed() {
+    const u = f => encodeURI('uploads/' + f);
+    const P = (f, who, when, t) => ({ src: u(f), who, when, t });
+    return [
+      { id: 'hala', name: 'Hala nu', on: true, photos: [P('PHOTO-2026-02-26-11-58-41 4.jpg', 'Hanin', 'februari 2026', 9), P('15314805-8ff7-4cb1-aacd-34082e5a6c7b.JPG', 'Hanin', 'badet, 2026', 8)] },
+      { id: 'familjen', name: 'Familjen', on: true, photos: [P('PHOTO-2026-02-26-11-58-41.jpg', 'Eman', 'bröllopet', 7)] },
+      { id: 'oslo', name: 'Oslo 2009', on: true, photos: ['20058_351341375125_7583582_n.jpg', '20058_351341275125_4451730_n.jpg', '20058_351341130125_5934721_n.jpg', '20058_351341025125_658254_n.jpg', '20058_351340665125_2548545_n.jpg', '20058_351340670125_4907619_n.jpg', '20058_351341065125_5059202_n.jpg'].map((f, i) => P(f, i % 2 ? 'Ala' : 'Hammed', 'Oslo, 2009', 6 - i * 0.1)) },
+      { id: 'ballong', name: 'Ballongen', on: true, photos: ['20058_351340905125_2371814_n.jpg', '20058_351341325125_5927167_n.jpg', '20058_351341300125_629333_n 2.jpg'].map(f => P(f, 'Eyass', 'Oslo, 2009', 5)) },
+    ];
+  }
+  loadAlbums() {
+    try { const s = localStorage.getItem('hala.albums.v2'); if (s) return JSON.parse(s); } catch (e) {}
+    return this.seed();
+  }
+  saveAlbums(albums, status) {
+    try { localStorage.setItem(this.KEY, JSON.stringify(albums)); } catch (e) { status = 'Lagringsutrymmet är fullt, bilden sparades inte'; }
+    this.setState({ albums, status: status || '', changed: new Date() });
+  }
+  componentDidMount() {
+    this.t1 = setInterval(() => this.setState(s => ({ now: new Date(), sec: s.sec + 1, slide: (s.sec + 1) % s.interval === 0 ? s.slide + 1 : s.slide })), 1000);
+    this.onStorage = e => { if (e.key === this.EKEY) this.setState({ entries: this.loadEntries() }); if (e.key === this.KEY) this.setState({ albums: this.loadAlbums(), changed: new Date(), status: 'Nya bilder hämtade' }); };
+    window.addEventListener('storage', this.onStorage);
+    this.t4 = setInterval(() => this.setState(s => ({ pg: s.pg + 1 })), 12000); this.loadMenu(); this.t3 = setInterval(() => this.loadMenu(), 3600000);
+  }
+  componentWillUnmount() { clearInterval(this.t1); window.removeEventListener('storage', this.onStorage); }
+  toggleAlbum = id => this.saveAlbums(this.state.albums.map(a => a.id === id ? { ...a, on: !a.on } : a));
+  pickTarget = e => this.setState({ target: e.target.value });
+  readFile(file) {
+    return new Promise(res => {
+      const r = new FileReader();
+      r.onload = () => { const im = new Image(); im.onload = () => {
+        const k = Math.min(1, 1000 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+        c.width = im.width * k; c.height = im.height * k; c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+        res(c.toDataURL('image/jpeg', 0.78)); }; im.onerror = () => res(null); im.src = r.result; };
+      r.onerror = () => res(null); r.readAsDataURL(file);
+    });
+  }
+  onFiles = async e => {
+    const files = Array.from(e.target.files || []); e.target.value = '';
+    if (!files.length) return;
+    this.setState({ status: 'Laddar upp ' + files.length + ' bild' + (files.length > 1 ? 'er' : '') + '…' });
+    const srcs = (await Promise.all(files.map(f => this.readFile(f)))).filter(Boolean);
+    const t = Date.now();
+    const added = srcs.map((src, i) => ({ src, who: 'Hanin', when: 'just nu', t: t + i }));
+    const albums = this.state.albums.map(a => a.id === this.state.target ? { ...a, photos: [...added.reverse(), ...a.photos] } : a);
+    this.saveAlbums(albums, srcs.length + ' bild' + (srcs.length > 1 ? 'er' : '') + ' tillagda');
+  };
+  setIntervalSec = n => () => this.setState({ interval: n, sec: 0 });
+  CATS = [
+    { id: 'tid', name: 'Tid eller besök', hint: 't.ex. Sjukgymnastik eller besök av Eman' },
+    { id: 'inkop', name: 'Inköp', hint: 't.ex. Tandkräm och handkräm' },
+    { id: 'medicin', name: 'Hämta medicin', hint: 't.ex. Hämta ut Alvedon på apoteket' },
+    { id: 'familj', name: 'Meddelande till familjen', hint: 't.ex. Hala vill ha te med kardemumma' },
+    { id: 'post', name: 'Räkning eller post', hint: 't.ex. Brev från Skatteverket' },
+    { id: 'varden', name: 'Vårdbehov', hint: 't.ex. Behöver ny rollator' },
+    { id: 'praktiskt', name: 'Praktiskt', hint: 't.ex. Nagelvård eller varma strumpor' },
+    { id: 'ovrigt', name: 'Övrigt', hint: 'Skriv vad det gäller' },
+  ];
+  FAMILY = ['Hanin', 'Ala', 'Hammed', 'Eyass', 'Eman'];
+  TOS = ['Sjuksköterska', 'Kontaktperson', 'Annan'];
+  EKEY = 'hala.entries.v2';
+  isoD(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  hm(iso) { const d = new Date(iso); return d.toLocaleDateString('sv-SE', { weekday: 'short' }) + ' ' + d.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }); }
+  seedEntries() {
+    const t = new Date(), at = k => { const d = new Date(t); d.setDate(t.getDate() + k); return this.isoD(d); };
+    const ago = m => new Date(Date.now() - m * 60000).toISOString();
+    const E = (cat, title, date, time, note, fam, by, role, to, extra) => ({ id: Math.random().toString(36).slice(2), cat, title, date, time, note, fam, done: false, by, byRole: role, to: to || 'Ingen',
+      log: [{ ev: 'Skickad', who: by, role, at: ago(240) }, ...(extra || [])] });
+    const M = ['Maria', 'Undersköterska'], L = ['Lisa', 'Rehab'], J = ['Johan', 'Sjuksköterska'];
+    return [
+      E('tid', 'Sjukgymnastik', at(0), '14:00', 'Träningsrummet, plan 1', true, ...L),
+      E('tid', 'Besök av Eman', at(1), '15:30', '', true, 'Eman', 'Familj', 'Annan', [{ ev: 'Kvitterad', who: 'Maria', role: 'Undersköterska', at: ago(200) }]),
+      E('tid', 'Husläkare Dr. Svensson', at(2), '10:30', 'Transport bokad kl. 10:00', true, ...J),
+      E('praktiskt', 'Fotvård', at(3), '13:00', '', true, ...M),
+      E('praktiskt', 'Nagelvård', at(5), '11:00', '', true, ...M),
+      E('familj', 'Hala vill ha te med kardemumma till fikat', '', '', 'Önskemål från Hala under dagens samtal', true, 'Hanin', 'Familj', 'Kontaktperson', [{ ev: 'Kvitterad', who: 'Maria', role: 'Undersköterska', at: ago(150) }]),
+      E('inkop', 'Handkräm och tandkräm', '', '', 'Tar slut inom en vecka', true, ...M),
+      E('medicin', 'Hämta ut Alvedon på apoteket', '', '', 'Recept finns hos Johan', false, ...J),
+      E('post', 'Brev från Försäkringskassan', '', '', 'Ligger i facket, ska visas för Hanin', true, ...M),
+      E('varden', 'Hala har svårt att gå med rollatorn', '', '', 'Kan någon se över om en ny behövs?', true, 'Eman', 'Familj', 'Sjuksköterska'),
+      E('praktiskt', 'Varma strumpor och kofta', '', '', 'Köps av familjen', true, ...M),
+    ];
+  }
+  loadEntries() { try { const s = localStorage.getItem(this.EKEY); if (s) return JSON.parse(s); } catch (e) {} return this.seedEntries(); }
+  saveEntries(entries, msg, extra) { try { localStorage.setItem(this.EKEY, JSON.stringify(entries)); } catch (e) {} this.setState({ entries, formMsg: msg || '', ...(extra || {}) }); }
+  mkEntry(p) { return { id: Math.random().toString(36).slice(2), date: '', time: '', note: '', done: false, ...p, log: [{ ev: 'Skickad', who: p.by, role: p.byRole, at: new Date().toISOString(), to: p.to, cat: p.cat }] }; }
+  logEv(id, ev, who, role, extra) { this.saveEntries(this.state.entries.map(e => e.id === id ? { ...e, ...(extra || {}), log: [...e.log, { ev, who, role, at: new Date().toISOString() }] } : e)); }
+  onAdd = () => {
+    const s = this.state; if (!s.sName.trim()) { this.setState({ formMsg: 'Skriv ditt namn först' }); return; } if (!s.formTitle.trim()) { this.setState({ formMsg: 'Skriv en rubrik först' }); return; }
+    const to = s.formTo === 'Annan' ? (s.formToName.trim() || 'Annan') : s.formTo;
+    const e = this.mkEntry({ cat: s.formCat, title: s.formTitle.trim(), date: s.formDate, time: s.formTime, note: s.formNote.trim(), fam: s.formFam, by: s.sName.trim(), byRole: 'Personal', to });
+    this.saveEntries([e, ...s.entries], 'Sparat och loggat. ' + (e.date && ['tid', 'praktiskt'].includes(e.cat) ? 'Visas på skärmsläckaren.' : ''), { formTitle: '', formDate: '', formTime: '', formNote: '', formToName: '' });
+  };
+  onSendFam = () => {
+    const s = this.state; if (!s.gTitle.trim()) { this.setState({ gMsg: 'Skriv en rubrik först' }); return; }
+    const e = this.mkEntry({ cat: s.gCat, title: s.gTitle.trim(), note: s.gNote.trim(), fam: true, by: s.famUser, byRole: 'Familj', to: s.gTo === 'Annan' ? (s.gToName.trim() || 'Annan') : s.gTo });
+    this.saveEntries([e, ...s.entries], '', { gTitle: '', gNote: '', gToName: '', gMsg: 'Skickat. Du ser här när någon kvitterat.' });
+  };
+  tabletVals() {
+    const s = this.state, n = s.now, C = this.CATS, cname = id => (C.find(c => c.id === id) || {}).name;
+    const cap = x => x.charAt(0).toUpperCase() + x.slice(1), todayIso = this.isoD(n);
+    const chip = (name, on, pick) => ({ name, bg: on ? 'var(--color-accent)' : 'transparent', fg: on ? 'var(--color-bg)' : 'var(--color-text)', onPick: pick });
+    const trail = e => e.log.map(l => l.ev + ' · ' + l.who + (l.ev === 'Skickad' ? ' till ' + (l.to || e.to) + ' om ' + cname(l.cat || e.cat) : '') + ' · ' + this.hm(l.at)).join('  →  ');
+    const ackOf = e => e.log.find(l => l.ev === 'Kvitterad'), readOf = e => e.log.find(l => l.ev === 'Läst av familjen');
+    const status = e => {
+      const out = []; let warn = false;
+      if (e.to) { const a = ackOf(e); if (a) out.push('Kvitterad av ' + a.who); else { out.push('Väntar på kvittens: ' + e.to); warn = true; } }
+      if (e.fam && e.byRole !== 'Familj') { const r = readOf(e); if (r) out.push('Läst av ' + r.who); else { out.push('Ej läst av familjen'); warn = true; } }
+      return { text: out.join(' · '), color: warn ? 'var(--color-clay)' : 'var(--color-accent-700)' };
+    };
+    const sorted = [...s.entries].sort((a, b) => (a.done - b.done) || ((a.date || '9999') + (a.time || '')).localeCompare((b.date || '9999') + (b.time || '')));
+    const onScreen = e => e.date && ['tid', 'praktiskt'].includes(e.cat) && !e.done;
+    const mon = new Date(n); mon.setDate(n.getDate() - ((n.getDay() + 6) % 7));
+    const lunchOf = iso => (s.menu || []).find(m => m.date === iso);
+    const actsOf = iso => s.entries.filter(e => onScreen(e) && e.date === iso).sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+    const weekRows = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(mon); d.setDate(mon.getDate() + i); const iso = this.isoD(d), td = iso === todayIso, a = actsOf(iso), l = lunchOf(iso);
+      return { dow: cap(d.toLocaleDateString('sv-SE', { weekday: 'long' })), dnum: d.getDate() + '/' + (d.getMonth() + 1), bg: td ? 'var(--color-accent)' : 'transparent', fg: td ? 'var(--color-bg)' : 'var(--color-text)',
+        acts: a.length ? a.map(x => (x.time ? x.time + ' ' : '') + x.title).join(' · ') : '–', lunch: l ? l.lunch : '–' };
+    });
+    const lt = lunchOf(todayIso), todayActs = actsOf(todayIso).map(x => ({ time: x.time || '', title: x.title }));
+    const f = s.filter, openN = s.entries.filter(e => !e.done);
+    const cur = C.find(c => c.id === s.formCat), gcur = C.find(c => c.id === s.gCat);
+    const fmtWhen = e => e.date ? cap(new Date(e.date + 'T12:00:00').toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' })) + (e.time ? ' ' + e.time : '') : 'Inget datum';
+    const nm = () => s.sName.trim(), need = () => { if (!nm()) { this.setState({ formMsg: 'Skriv ditt namn först (uppe till vänster)' }); return false; } return true; };
+    const greet = s.entries.filter(e => e.cat === 'familj' && !e.done).slice(0, 3);
+    const titles = ['Idag', 'Den här veckan', 'Veckans matsedel'].concat(greet.length ? ['Hälsningar från familjen'] : []);
+    const pi = s.pg % titles.length;
+    const pending = s.entries.filter(e => !e.done && status(e).color === 'var(--color-clay)').length;
+    const entryList = sorted.filter(e => f === 'alla' || e.cat === f).map(e => { const st = status(e), needAck = e.to && !ackOf(e);
+      return { catName: cname(e.cat), when: fmtWhen(e), from: e.by, toTxt: e.to, title: e.title, note: e.note, hasNote: !!e.note, op: e.done ? 0.5 : 1, deco: e.done ? 'line-through' : 'none',
+        status: st.text, hasStatus: !!st.text, statusColor: st.color, trail: trail(e), showAck: needAck && !e.done, ackCls: 'btn-primary',
+        ackLabel: 'Kvittera', onAck: () => need() && this.logEv(e.id, 'Kvitterad', nm(), 'Personal'),
+        doneLabel: e.done ? 'Ångra' : 'Klart', onDone: () => need() && this.logEv(e.id, e.done ? 'Öppnad igen' : 'Klart', nm(), 'Personal', { done: !e.done }) }; });
+    const sent = s.entries.filter(e => e.byRole === 'Familj').slice(0, 5).map(e => { const st = status(e); return { catName: cname(e.cat), to: e.to, title: e.title, status: st.text || 'Skickat', statusColor: st.color, trail: trail(e) }; });
+    const inbox = s.entries.filter(e => e.fam && e.byRole !== 'Familj' && !e.done).slice(0, 4).map(e => { const st = status(e), r = readOf(e);
+      return { catName: cname(e.cat), from: e.by, title: e.title, note: e.note, hasNote: !!e.note, status: r ? 'Läst av ' + r.who + ' ' + this.hm(r.at) : 'Ej läst', statusColor: r ? 'var(--color-accent-700)' : 'var(--color-clay)', canRead: !r, onRead: () => this.logEv(e.id, 'Läst av familjen', s.famUser, 'Familj') }; });
+    return {
+      lunchToday: lt ? lt.lunch : 'Ingen meny inlagd', hasAlt: !!(lt && lt.alt), lunchAlt: lt ? lt.alt : '', todayActs, noTodayActs: !todayActs.length, weekRows,
+      pageTitle: titles[pi], dots: titles.map((t, i) => ({ bg: i === pi ? 'var(--color-text)' : 'transparent' })), p0: pi === 0, p1: pi === 1, p2: pi === 2, p3: pi === 3,
+      greetings: greet.map(g => ({ title: g.title, by: g.by })),
+      sName: s.sName, onSName: e => this.setState({ sName: e.target.value }), annanOn: s.formTo === 'Annan', formToName: s.formToName, onToName: e => this.setState({ formToName: e.target.value }), gAnnanOn: s.gTo === 'Annan', gToName: s.gToName, onGToName: e => this.setState({ gToName: e.target.value }),
+      catChips: C.map(c => chip(c.name, c.id === s.formCat, () => this.setState({ formCat: c.id }))),
+      toChips: this.TOS.map(t => chip(t, t === s.formTo, () => this.setState({ formTo: t }))),
+      filterChips: [{ id: 'alla', name: 'Alla (' + openN.length + ')' }, ...C.map(c => ({ id: c.id, name: c.name + ' (' + openN.filter(e => e.cat === c.id).length + ')' }))].map(c => chip(c.name, c.id === f, () => this.setState({ filter: c.id }))),
+      entryList, openCount: openN.length, pendingCount: pending, titleHint: cur.hint, formTitle: s.formTitle, formDate: s.formDate, formTime: s.formTime, formNote: s.formNote, formMsg: s.formMsg, hasFormMsg: !!s.formMsg,
+      onTitle: e => this.setState({ formTitle: e.target.value }), onDate: e => this.setState({ formDate: e.target.value }), onTime: e => this.setState({ formTime: e.target.value }), onNote: e => this.setState({ formNote: e.target.value }),
+      setFamYes: () => this.setState({ formFam: true }), setFamNo: () => this.setState({ formFam: false }), onAdd: this.onAdd,
+      famYesBg: s.formFam ? 'var(--color-accent)' : 'transparent', famYesFg: s.formFam ? 'var(--color-bg)' : 'var(--color-text)', famNoBg: s.formFam ? 'transparent' : 'var(--color-accent)', famNoFg: s.formFam ? 'var(--color-text)' : 'var(--color-bg)',
+      famChips: this.FAMILY.map(n2 => chip(n2, n2 === s.famUser, () => this.setState({ famUser: n2 }))), famName: s.famUser,
+      gCatChips: C.map(c => chip(c.name, c.id === s.gCat, () => this.setState({ gCat: c.id }))), gToChips: this.TOS.map(t => chip(t, t === s.gTo, () => this.setState({ gTo: t }))),
+      gHint: gcur.hint, gTitle: s.gTitle, gNote: s.gNote, gMsg: s.gMsg, hasGMsg: !!s.gMsg, onGTitle: e => this.setState({ gTitle: e.target.value }), onGNote: e => this.setState({ gNote: e.target.value }), onSendFam: this.onSendFam,
+      sentList: sent, inbox,
+    };
+  }
+  renderVals() {
+    const n = this.state.now;
+    const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+    const clock = n.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+    const weekday = cap(n.toLocaleDateString('sv-SE', { weekday: 'long' }));
+    const dateLine = n.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long', year: 'numeric' });
+    const d = new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    const week = Math.ceil(((d - Date.UTC(d.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
+    const st = this.state;
+    const slides = st.albums.filter(a => a.on).flatMap(a => a.photos.map(p => ({ ...p, group: a.name }))).sort((x, y) => y.t - x.t);
+    const hasSlides = slides.length > 0;
+    const si = hasSlides ? st.slide % slides.length : 0, sl = slides[si] || { src: '', who: '', group: '', when: '' };
+    const dotsN = Math.min(slides.length, 24), dots = Array.from({ length: dotsN }, (_, i) => ({ bg: i === si % Math.max(dotsN, 1) ? 'var(--color-accent)' : 'var(--color-neutral-300)' }));
+    const albums = st.albums.map(a => ({ id: a.id, name: a.name, meta: a.photos.length + ' bilder', state: a.on ? 'På' : 'Av', cls: a.on ? 'tag-accent' : 'tag-neutral', onToggle: () => this.toggleAlbum(a.id) }));
+    const cur = st.albums.find(a => a.id === st.target) || st.albums[0] || { photos: [], name: '' };
+    const chips = st.albums.map(a => ({ name: a.name, bg: a.id === st.target ? 'var(--color-accent)' : 'transparent', fg: a.id === st.target ? 'var(--color-bg)' : 'var(--color-text)', onPick: () => this.setState({ target: a.id }) }));
+    const grid = cur.photos.map((p, i) => ({ src: p.src, key: i, title: p.who + ' · ' + p.when }));
+    const intervals = [3, 6, 15, 30].map(n => ({ label: n + ' s', bg: st.interval === n ? 'var(--color-accent)' : 'transparent', fg: st.interval === n ? 'var(--color-bg)' : 'var(--color-text)', onPick: this.setIntervalSec(n) }));
+    const newest = st.albums.flatMap(a => a.photos.map(p => ({ ...p, group: a.name }))).sort((x, y) => y.t - x.t)[0];
+    const screensaver = { clock, weekday, dateLine, weekNo: week, dots, albums, chips, grid, intervals, hasSlides, noSlides: !hasSlides, slideSrc: sl.src, slideWho: sl.who, slideGroup: sl.group, slideWhen: sl.when, slideNo: si + 1, slideTotal: slides.length,
+      albumOptions: st.albums.map(a => ({ id: a.id, name: a.name })), target: st.target, onPickTarget: this.pickTarget, onFiles: this.onFiles, status: st.status, hasStatus: !!st.status, changedAt: st.changed.toLocaleTimeString('sv-SE'), curName: cur.name, curCount: cur.photos.length,
+      latestSrc: newest ? newest.src : '', latestCaption: newest ? newest.group + ' · ' + newest.who + ', ' + newest.when : '', hasLatest: !!newest };
+    const cap2 = s => s.charAt(0).toUpperCase() + s.slice(1);
+    let menuDays;
+    if (st.menu) {
+      const today = n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+      let rows = st.menu.filter(e => e.date >= today);
+      if (!rows.length) rows = st.menu.slice(-7);
+      menuDays = rows.slice(0, 7).map((e, i) => { const dt = new Date(e.date + 'T12:00:00'); return { day: cap2(dt.toLocaleDateString('sv-SE', { weekday: 'long' })), date: dt.toLocaleDateString('sv-SE', { day: 'numeric', month: 'long' }), items: [{ meal: 'Lunch', what: e.lunch }, { meal: 'Alternativ', what: e.alt }, { meal: 'Grön', what: e.green }], rule: i ? '1px solid var(--color-divider)' : '2px solid var(--color-divider)' }; });
+    } else {
+      const ex = [['Måndag', '2 november', 'Köttbullar med gräddsås, potatis och lingon', 'Ugnsbakad fisk med dillsås'], ['Tisdag', '3 november', 'Kycklinggryta med ris', 'Grönsakssoppa och smörgås'], ['Onsdag', '4 november', 'Pannbiff med lök och kokt potatis', 'Pytt i panna'], ['Torsdag', '5 november', 'Ärtsoppa och pannkakor', 'Fiskgratäng'], ['Fredag', '6 november', 'Stekt strömming med potatismos', 'Tacopaj']];
+      menuDays = ex.map((e, i) => ({ day: e[0], date: e[1], rule: i ? '1px solid var(--color-divider)' : '2px solid var(--color-divider)', items: [{ meal: 'Lunch', what: e[2] }, { meal: 'Middag', what: e[3] }] }));
+    }
+    const menuVals = { menuDays, menuStatus: st.menuLive ? 'Synkad' : 'Exempeldata', menuTagCls: st.menuLive ? 'tag-accent' : 'tag-neutral' };
+    return { ...screensaver, ...menuVals, ...this.tabletVals(), ...this.baseVals() };
+  }
+  baseVals() {
+    const ok = 'tag-neutral', nx = 'tag-accent';
+    const today = [
+      { time: '08:00', what: 'Frukost och morgonmedicin', status: 'Klart', cls: ok },
+      { time: '11:30', what: 'Lunch', status: 'Klart', cls: ok },
+      { time: '14:00', what: 'Sjukgymnastik', status: 'Kommande', cls: nx },
+      { time: '15:30', what: 'Eftermiddagsfika i matsalen', status: 'Kommande', cls: nx },
+    ];
+    const dows = ['Mån', 'Tis', 'Ons', 'Tors', 'Fre', 'Lör', 'Sön'];
+    const week = dows.map((d, i) => {
+      const sel = i === 1, has = [1, 3, 4].includes(i);
+      return { dow: d, n: 2 + i, bg: sel ? 'var(--color-accent)' : 'transparent', fg: sel ? 'var(--color-bg)' : 'var(--color-text)', dot: has ? (sel ? 'var(--color-bg)' : 'var(--color-accent)') : 'transparent' };
+    });
+    const appts = [
+      { day: 'Tis 3 nov', time: '14:00', title: 'Sjukgymnastik', where: 'Träningsrummet, plan 1', status: 'Bekräftad', cls: ok },
+      { day: 'Tors 5 nov', time: '10:30', title: 'Husläkare Dr. Svensson', where: 'Vårdcentralen Fosie · transport bokad', status: 'Bekräftad', cls: ok },
+      { day: 'Fre 6 nov', time: '13:00', title: 'Fotvård', where: 'Förfrågan från Eman', status: 'Väntar på personalen', cls: nx },
+    ];
+    const feed = [
+      { who: 'Maria · Undersköterska', nameColor: 'var(--color-accent-700)', when: '10:12', photo: true, text: 'Hala åt hela frukosten och vi tog en promenad i trädgården. Hon var på gott humör.' },
+      { who: 'Hanin', nameColor: 'var(--color-text)', when: '10:40', text: 'Tack Maria, hon älskar trädgården. Hälsa att jag ringer ikväll.' },
+      { who: 'Johan · Sjuksköterska', nameColor: 'var(--color-accent-700)', when: '12:05', text: 'Blodtryck 132/84 och puls 72. Allt ser bra ut inför torsdagens läkarbesök.' },
+      { who: 'Hammed', nameColor: 'var(--color-text)', when: '12:30', text: 'Bra att höra. Jag kan följa med på torsdag.' },
+    ];
+    const alerts = [
+      { kind: 'Fall', bar: 'var(--color-clay)', kcolor: 'var(--color-clay)', when: 'Idag 06:52', title: 'Hala halkade vid sängkanten', text: 'Ingen synlig skada. Sjuksköterska har undersökt henne och kontrollerar igen kl. 12.' },
+      { kind: 'Ändrad vårdplan', bar: 'var(--color-text)', kcolor: 'var(--color-text)', when: 'Igår 15:20', title: 'Sjukgymnastik tre gånger i veckan', text: 'Johan har lagt till ett pass på fredagar.' },
+      { kind: 'Läkarbesök', bar: 'var(--color-neutral-500)', kcolor: 'var(--color-neutral-700)', when: 'Om 2 dagar', title: 'Husläkare torsdag 10:30', text: 'Transport från Fosieborg är bokad 10:00.' },
+      { kind: 'Läkarbesök', bar: 'var(--color-neutral-500)', kcolor: 'var(--color-neutral-700)', when: 'Om 3 dagar', title: 'Fotvård fredag 13:00', text: 'Väntar på bekräftelse från personalen.' },
+    ];
+    const staff = [
+      { name: 'Maria Lindqvist', role: 'Undersköterska', shift: 'dag' },
+      { name: 'Johan Persson', role: 'Sjuksköterska', shift: 'dag' },
+      { name: 'Fatima Ahmed', role: 'Undersköterska', shift: 'kväll' },
+    ];
+    const family = [
+      { name: 'Hanin', role: 'Administratör', cls: 'tag-accent' },
+      { name: 'Ala', role: 'Se och skriva', cls: 'tag-neutral' },
+      { name: 'Hammed', role: 'Se och skriva', cls: 'tag-neutral' },
+      { name: 'Eyass', role: 'Se och skriva', cls: 'tag-neutral' },
+      { name: 'Eman', role: 'Se och skriva', cls: 'tag-neutral' },
+    ];
+    const care = [
+      { time: '07:30', what: 'Morgonhygien', note: 'Hjälp med dusch', who: 'Maria', status: 'Klart', cls: ok },
+      { time: '08:00', what: 'Frukost och medicin', note: 'Åt allt', who: 'Maria', status: 'Klart', cls: ok },
+      { time: '11:30', what: 'Lunch', note: 'Halv portion, drack mycket', who: 'Fatima', status: 'Klart', cls: ok },
+      { time: '14:00', what: 'Sjukgymnastik', note: 'Gångträning 20 min', who: 'Rehab', status: 'Kommande', cls: nx },
+      { time: '15:30', what: 'Eftermiddagsfika', note: 'Te med kardemumma', who: 'Fatima', status: 'Kommande', cls: nx },
+      { time: '18:00', what: 'Middag', note: '', who: 'Fatima', status: 'Kommande', cls: nx },
+      { time: '20:00', what: 'Kvällsmedicin och nattning', note: '', who: 'Kvällspersonal', status: 'Kommande', cls: nx },
+    ];
+    const showPhotos = this.props.showPhotos ?? true;
+    const calendarLink = this.props.calendarLink ?? true;
+    if ((this.props.familyRoles ?? 'admin') === 'equal') family.forEach(f => { f.role = 'Administratör'; f.cls = 'tag-accent'; });
+    feed.forEach(m => { m.photo = !!m.photo && showPhotos; });
+    return { today, week, appts, feed, alerts, staff, family, care, showPhotos, calendarLink };
+  }
+}
+
+</script>
+</body>
+</html>

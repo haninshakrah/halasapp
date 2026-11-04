@@ -1,0 +1,218 @@
+{
+ "source": "Malmö stad – Malmö stads restauranger för seniorer",
+ "pageUpdated": "2026-05-22",
+ "price": "99 kr, inkl. bröd, salladsbuffé, dryck, dessert och kaffe",
+ "hours": "Lunch serveras kl. 11.30–14.00",
+ "days": [
+  {
+   "date": "2026-11-02",
+   "lunch": "Viltskavsgryta med svamp, kokt potatis och tricolormix",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-03",
+   "lunch": "Stekt sill med potatismos, smält smör, ärtor och lingonsylt",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-04",
+   "lunch": "Stekt korv med stuvad potatis och kokt broccoli",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-05",
+   "lunch": "Ärtsoppa med fläsk serveras med smörgås och pålägg",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-06",
+   "lunch": "Pasta bolognese (köttfärssås) serveras med riven ost",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-07",
+   "lunch": "Ångad fisk med hummersås, potatis och rostade betor",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-08",
+   "lunch": "Kotlettrad med rödvinssås, potatis, Romanesco symfoni och gelè",
+   "alt": "Oxjärpar med potatis, ajvarsås och kokta grönsaker",
+   "green": "Vegetarisk färsfrestelse med curry serveras med grönsaker"
+  },
+  {
+   "date": "2026-11-09",
+   "lunch": "Rotmos med fläskkorv och senap",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-10",
+   "lunch": "Förrätt",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-11",
+   "lunch": "Stekt panerad spätta serveras med dansk remouladsås, potatis och kokta ärtor",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-12",
+   "lunch": "Skånsk kålsoppa serveras med frikadeller, smörgås och pålägg",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-13",
+   "lunch": "Schweizerfärslimpa (skinka och ost), potatis, gräddsås, bukettgrönsaker och inlagd gurka",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-14",
+   "lunch": "Kycklingfilé med gräddig dragonsås, potatis och rostade rotfrukter",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-15",
+   "lunch": "Dillfrikassé med morötter och kokt potatis",
+   "alt": "Köttbullar med gräddsås, potatis och kokta grönsaker lingonsylt",
+   "green": "Vegetarisk schnitzel med champinjonsås, potatis och kokta grönsaker"
+  },
+  {
+   "date": "2026-11-16",
+   "lunch": "Ugnsbakad falukorv, potatismos och kokta morötter",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-17",
+   "lunch": "Karibisk fiskgryta serveras med potatis och gröna ärtor",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-18",
+   "lunch": "Stekt fläsk serveras med löksås, kokt potatis och brytbönor",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-19",
+   "lunch": "Ängamatsoppa serveras med frikadeller och kuvertbröd",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-20",
+   "lunch": "Kåldolmar med gräddsås, kokt potatis och ärtor lingonsylt",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-21",
+   "lunch": "Ångad fisk med hummersås, potatis och rostade betor",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-22",
+   "lunch": "Kycklingfilé serveras med potatisgratäng, skysås och bukettgrönsaker",
+   "alt": "Pytt i panna serveras med rödbetor och stekt ägg",
+   "green": "Vegetarisk lasagnette serveras med kokta grönsaker"
+  },
+  {
+   "date": "2026-11-23",
+   "lunch": "Spansk kycklinggryta serveras med ris",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-24",
+   "lunch": "Sprödbakad sej serveras med stuvad spenat, potatis och tomat",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-25",
+   "lunch": "Frikadeller med curry- och äppelsås, serveras med ris och kokta morötter.",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-26",
+   "lunch": "Skånsk ärtsoppa med fläsk serveras med bröd och pålägg",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-27",
+   "lunch": "Pannbiff med stekt lök, gräddsås, potatis, klostergrönsaker, lingonsylt",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-28",
+   "lunch": "Bouillabaisse - fransk fisk- och skaldjursgryta serveras med potatis och citronaioli",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-29",
+   "lunch": "Fläskschnitzel, skogssvampssås, potatis och kokta ärtor",
+   "alt": "Blodpudding serveras med stekt bacon och lingonsylt",
+   "green": "Vegetarisk kålpudding, gräddsås, potatis och lingonsylt"
+  },
+  {
+   "date": "2026-11-30",
+   "lunch": "Österlengryta serveras med ris och broccoli",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  },
+  {
+   "date": "2026-12-01",
+   "lunch": "Spansk het fiskgratäng med oliver , potatismos och gröna ärtor",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  },
+  {
+   "date": "2026-12-02",
+   "lunch": "Isterband med stuvad blomkål, kokt potatis och rödbetor",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  },
+  {
+   "date": "2026-12-03",
+   "lunch": "Putszasoppa (nötfärs & paprikasoppa) med bröd och pålägg",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  },
+  {
+   "date": "2026-12-04",
+   "lunch": "Italienska köttbullar i tomatsås serveras med pasta",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  },
+  {
+   "date": "2026-12-05",
+   "lunch": "Kycklinglårfilé med gräddsås, potatis, picklad pumpa och gelé",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  },
+  {
+   "date": "2026-12-06",
+   "lunch": "Viltskavsgryta med svamp, kokt potatis och morötter",
+   "alt": "Kycklingwok med nudlar",
+   "green": "Falafel (kikärtsbollar) serveras med kålsallad, klyftpotatis och vitlökssås"
+  }
+ ]
+}
