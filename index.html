@@ -763,7 +763,7 @@ class Component extends DCLogic {
   };
   CALID = 'a45e5a856316a857754f99348eac8b3cdd5fd92edf48f7c88482c611816deccf@group.calendar.google.com';
   loadCal() {
-    const key = (this.props.googleApiKey || '').trim();
+    const key = (this.props.googleApiKey || 'AIzaSyAU5g6frjFfPuvVlTrRZx9l43L57zcjWcM').trim();
     if (key) {
       const t0 = new Date(); t0.setHours(0, 0, 0, 0); const t1 = new Date(t0.getTime() + 45 * 864e5);
       const u = 'https://www.googleapis.com/calendar/v3/calendars/' + encodeURIComponent(this.CALID) + '/events?singleEvents=true&orderBy=startTime&maxResults=250&timeMin=' + encodeURIComponent(t0.toISOString()) + '&timeMax=' + encodeURIComponent(t1.toISOString()) + '&key=' + encodeURIComponent(key);
