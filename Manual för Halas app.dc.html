@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><style>body{margin:0;background:#ddd5c3}a{color:#3a5428}a:hover{color:#a8472a}@media print{body{background:#fff}}</style></helmet>
+<div style="max-width:780px;margin:0 auto;background:#f1ece1;padding:56px 56px 72px;font-family:Georgia,serif;color:#2b2a22;line-height:1.55;font-size:17px">
+<div style="font-family:system-ui,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:#3a5428">Manual</div>
+<h1 style="font-size:40px;line-height:1.1;margin:6px 0 4px">Halas vård och omsorgsapp</h1>
+<div style="font-family:system-ui,sans-serif;font-size:15px;color:#5f5645">Så ändrar du appen och tar den i bruk. Adress: haninshakrah.github.io/halasapp · Repo: github.com/haninshakrah/halasapp</div>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">0. Börja från noll: ny repo i 5 steg</h2>
+<p style="margin:0 0 8px">Du behöver mappen <b>github-upload</b> (ladda ner den från Claude och packa upp den). Den innehåller allt utom arbetsflödesfilen, som du skapar direkt på GitHub i steg 3.</p>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">Steg 1. Skapa repon</div>
+<ol style="padding-left:22px;margin:0">
+<li>Gå till github.com, tryck <b>+</b> uppe till höger och välj <b>New repository</b>.</li>
+<li>Namn: <span style="font-family:monospace">halasapp</span>. Välj <b>Public</b>. Kryssa i <b>Add a README file</b> så att repon inte är tom. Tryck <b>Create repository</b>.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">Steg 2. Ladda upp filerna</div>
+<ol style="padding-left:22px;margin:0">
+<li>I repon, tryck <b>Add file</b> och <b>Upload files</b>.</li>
+<li>Öppna mappen <b>github-upload</b> på din dator. Markera <b>allt som ligger inuti den</b> (index.html, menu.json, support.js, ios-frame.jsx, _ds, uploads, scripts). Dra det hela in i webbläsaren. Dra inte själva mappen github-upload.</li>
+<li>Använd Chrome eller Edge, de kan ta emot mappar. Vänta tills alla filer är uppladdade (de är ungefär 30 stycken).</li>
+<li>Tryck <b>Commit changes</b> längst ned.</li>
+<li>Kontrollera: startsidan ska visa <b>index.html</b>, <b>menu.json</b> och mapparna <b>_ds</b>, <b>scripts</b> och <b>uploads</b> direkt, utan någon mapp som heter github-upload eller Family care coordination app. Är det fel, radera repon och börja om.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">Steg 3. Skapa arbetsflödet (för menyn)</div>
+<p style="margin:0 0 6px">Dolda mappar som <span style="font-family:monospace">.github</span> följer ofta inte med vid uppladdning, så den här filen skapas på GitHub.</p>
+<ol style="padding-left:22px;margin:0">
+<li>Tryck <b>Add file</b> och <b>Create new file</b>.</li>
+<li>Skriv i namnfältet exakt: <span style="font-family:monospace">.github/workflows/update-menu.yml</span> (snedstrecken skapar mapparna).</li>
+<li>Klistra in texten nedan, tryck <b>Commit changes</b> och sedan <b>Commit changes</b> igen.</li>
+</ol>
+<pre style="font-family:monospace;font-size:13px;line-height:1.45;background:#e6dfce;border:1px solid #998d75;padding:14px;margin:10px 0 0;overflow:auto;white-space:pre">name: Uppdatera matsedel
+on:
+  schedule:
+    - cron: '0 5 * * 1,4'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: node scripts/update-menu.mjs menu.json
+      - name: Spara om något ändrats
+        run: |
+          git config user.name "menu-bot"
+          git config user.email "menu-bot@users.noreply.github.com"
+          git add menu.json
+          git diff --cached --quiet || (git commit -m "Uppdaterad matsedel" && git push)</pre>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">Steg 4. Slå på webbplatsen</div>
+<ol style="padding-left:22px;margin:0">
+<li><b>Settings</b>, sedan <b>Pages</b> i vänstermenyn.</li>
+<li>Under <b>Build and deployment</b>: välj <b>Deploy from a branch</b>, branch <b>main</b>, mapp <b>/ (root)</b>. Tryck <b>Save</b>.</li>
+<li>Efter 1–2 minuter visas adressen högst upp: <span style="font-family:monospace">https://haninshakrah.github.io/halasapp/</span>. Öppna den.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">Steg 5. Ge arbetsflödet skrivrätt och kör det</div>
+<ol style="padding-left:22px;margin:0">
+<li><b>Settings</b>, <b>Actions</b>, <b>General</b>. Under <b>Workflow permissions</b> välj <b>Read and write permissions</b> och tryck <b>Save</b>.</li>
+<li>Gå till fliken <b>Actions</b>. Tryck på den gröna knappen om GitHub frågar om att slå på arbetsflöden.</li>
+<li>Välj <b>Uppdatera matsedel</b>, <b>Run workflow</b>, <b>Run workflow</b>. Grön bock efter en stund betyder att det fungerar.</li>
+</ol>
+<p style="margin:12px 0 0">Om sidan inte syns: kontrollera att Pages-körningen under <b>Actions</b> är grön, att <b>index.html</b> ligger i roten och ladda om med Ctrl+Skift+R.</p>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">1. Vad finns i repon</h2>
+<div style="display:grid;grid-template-columns:200px 1fr;gap:6px 16px;font-size:16px">
+<b style="font-family:monospace">index.html</b><span>Hela appen: familjeappen, skärmsläckaren, personalvyn. Det är den här filen du ändrar.</span>
+<b style="font-family:monospace">menu.json</b><span>Lunchmenyn. Skrivs över automatiskt, ändra inte för hand.</span>
+<b style="font-family:monospace">uploads/</b><span>Bilder till albumen.</span>
+<b style="font-family:monospace">scripts/update-menu.mjs</b><span>Hämtar menyn från Malmö stads sida.</span>
+<b style="font-family:monospace">.github/workflows/update-menu.yml</b><span>Kör skriptet varje måndag och torsdag.</span>
+<b style="font-family:monospace">support.js, ios-frame.jsx, _ds/</b><span>Krävs för att appen ska visas. Ta inte bort.</span>
+</div>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">2. Små ändringar själv</h2>
+<p style="margin:0 0 8px">Gäller text, namn, kategorier och tider.</p>
+<ol style="padding-left:22px;margin:0">
+<li>Öppna repon på github.com och klicka på <b>index.html</b>.</li>
+<li>Klicka på pennan (<b>Edit this file</b>) uppe till höger.</li>
+<li>Klicka i texten och tryck Ctrl+F (Cmd+F på Mac). Sök på det du vill ändra.</li>
+<li>Ändra texten. Rör inte tecken som <span style="font-family:monospace">{{ }}</span>, <span style="font-family:monospace">&lt; &gt;</span> eller citattecken runt orden.</li>
+<li>Tryck <b>Commit changes</b>, skriv en kort beskrivning och tryck <b>Commit changes</b> igen.</li>
+<li>Vänta ungefär en minut. Ladda om sidan med Ctrl+Skift+R (Cmd+Skift+R).</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:20px 0 6px">Sökord för vanliga ändringar</div>
+<div style="display:grid;grid-template-columns:230px 1fr;gap:6px 16px;font-size:16px;border-top:1px solid #998d75;padding-top:10px">
+<b style="font-family:monospace">ROUTINE =</b><span>Dagsrutinen: tid, namn och del av dagen (Morgon, Eftermiddag, Kväll). En rad per punkt.</span>
+<b style="font-family:monospace">GOALS =</b><span>Veckomålen: namn, antal gånger per vecka (<span style="font-family:monospace">target</span>) och stjärnor per gång (<span style="font-family:monospace">stars</span>).</span>
+<b style="font-family:monospace">REWARDS =</b><span>Belöningarna: namn och kostnad i stjärnor (<span style="font-family:monospace">cost</span>).</span>
+<b style="font-family:monospace">FAMILY =</b><span>Familjemedlemmarnas namn i 4c.</span>
+<b style="font-family:monospace">CATS =</b><span>Kategorierna (Inköp, Hämta medicin, Övrigt med flera). Varje rad har id, namn och exempeltext.</span>
+<b style="font-family:monospace">TOS =</b><span>Mottagarknapparna: Sjuksköterska, Kontaktperson, Annan.</span>
+<b style="font-family:monospace">12000</b><span>Hur ofta skärmsläckaren byter sida, i millisekunder. 12000 är 12 sekunder, 20000 är 20 sekunder.</span>
+<b style="font-family:monospace">Fosieborgs</b><span>Boendets namn.</span>
+<b style="font-family:monospace">seedEntries</b><span>Exempelposterna. Radera raderna för att starta med en tom lista.</span>
+</div>
+<p style="margin:14px 0 0">Gick något fel: öppna filen, välj <b>History</b> och sedan en äldre version. Tryck <b>⋯</b> och <b>Revert</b> eller kopiera tillbaka innehållet.</p>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">3. Större ändringar med Claude</h2>
+<p style="margin:0 0 8px">Gäller nya skärmar, ny layout, nya funktioner eller flera ändringar samtidigt.</p>
+<ol style="padding-left:22px;margin:0">
+<li>Öppna projektet <b>Family care coordination app</b> i Claude.</li>
+<li>Skriv vad du vill ha ändrat, helst en sak i taget. Exempel: "Lägg till kategorin Frisör" eller "Gör texten på skärmsläckaren större".</li>
+<li>Granska resultatet i förhandsvisningen. Säg till om något ska justeras.</li>
+<li>Be Claude: "Skapa en ny index.html av senaste versionen". Ladda ner filen.</li>
+<li>Ersätt filen i repon: öppna repon, välj <b>Add file</b>, <b>Upload files</b>, dra in den nya <b>index.html</b> i roten och tryck <b>Commit changes</b>. Den gamla filen ersätts.</li>
+<li>Vänta en minut och ladda om sidan utan cache.</li>
+</ol>
+<p style="margin:12px 0 0">Gör inte ändringar både på GitHub och i Claude samtidigt. Då skriver den nya filen över dina ändringar på GitHub. Lägg i så fall in ändringen i Claude, eller be Claude om den på nytt.</p>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">4. Bilder</h2>
+<ol style="padding-left:22px;margin:0">
+<li>Öppna mappen <b>uploads</b> i repon. Välj <b>Add file</b>, <b>Upload files</b>, dra in bilderna och tryck <b>Commit changes</b>.</li>
+<li>Bilderna visas först när de finns i bildlistan i <b>index.html</b>. Be Claude lägga in dem, eller sök på <span style="font-family:monospace">uploads/</span> och kopiera en befintlig rad.</li>
+<li>Använd bilder under 500 kB och undvik å, ä och ö i filnamnen.</li>
+</ol>
+<p style="margin:8px 0 0">Repon är publik. Lägg inte upp privata eller känsliga bilder.</p>
+
+<sc-if value="{{ showAlbum }}" hint-placeholder-val="{{ true }}">
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">4b. Bilder från ett delat Google-album</h2>
+<ol style="padding-left:22px;margin:0">
+<li>I Google Foton (appen): välj <b>Delning</b>, <b>Skapa delat album</b> och ge det ett namn, till exempel "Hala".</li>
+<li>Bjud in familjen. Alla som är med kan lägga till bilder direkt från sin telefon.</li>
+<li>Albumets länk: <a href="{{ albumHref }}" target="_blank" rel="noopener">{{ albumLabel }}</a></li>
+</ol>
+<sc-if value="{{ isManual }}" hint-placeholder-val="{{ true }}">
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:16px 0 6px">Läge: manuell synk (fungerar nu)</div>
+<ol style="padding-left:22px;margin:0">
+<li>Öppna det delade albumet på en dator. Välj <b>⋯</b> och <b>Ladda ned alla</b>. Du får en zip-fil.</li>
+<li>Packa upp, ändra filnamn till enkla namn utan å, ä, ö, och ladda upp bilderna i mappen <b>uploads</b> på GitHub (avsnitt 4).</li>
+<li>Be Claude lägga in de nya bilderna i albumlistan.</li>
+<li>Gör om det när det kommit många nya bilder, till exempel varje månad.</li>
+</ol>
+</sc-if>
+<sc-if value="{{ isAuto }}" hint-placeholder-val="{{ false }}">
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:16px 0 6px">Läge: automatisk synk (kräver en server)</div>
+<ul style="padding-left:22px;margin:0">
+<li>Det går inte att få en app att följa ett delat Google Foton-album av sig själv. Sedan 31 mars 2025 får appar bara läsa bilder de själva laddat upp. Det gäller också en server, inte bara webbläsaren.</li>
+<li>Det som finns kvar hos Google är Picker-tjänsten. Då väljer en person bilder i Google Foton och appen får kopior av dem. Nya bilder i albumet följs inte, utan måste väljas om.</li>
+<li>Alternativ som går att automatisera: låt familjen ladda upp bilder direkt i Halas app (kräver en gemensam databas med bildlagring), eller använd en delad mapp i en tjänst som tillåter åtkomst via länk.</li>
+<li>Tills dess, använd manuell synk (ändra reglaget i Tweaks).</li>
+</ul>
+</sc-if>
+<p style="margin:12px 0 0">Albumet är synligt för alla som har länken. Lägg inte in privata bilder.</p>
+</sc-if>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">4c. Delade bilder: uppladdning direkt i appen</h2>
+<p style="margin:0 0 8px">Bilder som familjen laddar upp i appen sparas hos Supabase, en gratis tjänst för bildlagring, och visas på surfplattan inom fem minuter. Ingen manuell synk behövs. Uppladdningen är inte provad ännu, så testa med en bild först.</p>
+<ol style="padding-left:22px;margin:0">
+<li>Skapa ett gratis konto på supabase.com och ett nytt projekt.</li>
+<li>Välj <b>Storage</b>, <b>New bucket</b>. Namn: <span style="font-family:monospace">hala-bilder</span>. Slå på <b>Public bucket</b>.</li>
+<li>Välj <b>SQL Editor</b>, klistra in texten nedan och tryck <b>Run</b>. Den tillåter att bilder läses och laddas upp med nyckeln.</li>
+<li>Under <b>Project Settings</b>, <b>API</b>: kopiera <b>Project URL</b> och nyckeln <b>anon public</b>.</li>
+<li>Klistra in dem i Tweaks, i gruppen <b>Delade bilder</b>: <span style="font-family:monospace">supabaseUrl</span> och <span style="font-family:monospace">supabaseKey</span>. För att de ska gälla på alla enheter måste de stå i filen. Sök på <span style="font-family:monospace">supabaseUrl</span> i <b>index.html</b>, eller be Claude lägga in dem.</li>
+<li>Familjen öppnar appens adress på sin telefon, väljer Skärmsläckare och inställningar, väljer album och trycker på uppladdning.</li>
+</ol>
+<pre style="font-family:monospace;font-size:13px;line-height:1.45;background:#e6dfce;border:1px solid #998d75;padding:14px;margin:10px 0 0;overflow:auto;white-space:pre">create policy "bilder läsa" on storage.objects for select to anon using (bucket_id = 'hala-bilder');
+create policy "bilder ladda upp" on storage.objects for insert to anon with check (bucket_id = 'hala-bilder');</pre>
+<p style="margin:12px 0 0"><b>Obs:</b> Nyckeln syns i sidans kod, och alla som har appens adress kan ladda upp och se bilder. Lägg inte upp privata bilder. Bilder som lagts upp i appen kan inte tas bort från appen. Radera dem i Supabase under Storage.</p>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">4d. Google Kalender: läsa, ändra och lägga in</h2>
+<p style="margin:0 0 8px">Med en API-nyckel läser appen alla tider, även återkommande. Med ett OAuth-klient-ID kan personalen lägga in, ändra och ta bort tider i Google Kalender från appen. Båda skapas gratis i Google Cloud. Stegen är skrivna efter hur Googles konsol ser ut, men menynamnen kan ha ändrats. Prova på GitHub-adressen, inte i Claudes förhandsvisning.</p>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">A. Förbered kalendern</div>
+<ol style="padding-left:22px;margin:0">
+<li>Öppna Google Kalender, kalenderns <b>Inställningar</b>, <b>Åtkomstbehörigheter för händelser</b>.</li>
+<li>Kryssa i <b>Gör tillgänglig för allmänheten</b> och välj <b>Visa alla händelseuppgifter</b>. Annars syns inga titlar.</li>
+<li>Under <b>Dela med specifika personer</b>: lägg till varje person som ska ändra, med behörigheten <b>Gör ändringar i händelser</b>.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">B. Skapa projekt och slå på kalender-API:t</div>
+<ol style="padding-left:22px;margin:0">
+<li>Gå till console.cloud.google.com och logga in med ditt Google-konto.</li>
+<li>Uppe till vänster: välj projektlistan och <b>Nytt projekt</b>. Namn: "Halas app". Skapa.</li>
+<li>Meny, <b>APIs och tjänster</b>, <b>Bibliotek</b>. Sök på "Google Calendar API", öppna den och tryck <b>Aktivera</b>.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">C. API-nyckel (läsa, även återkommande tider)</div>
+<ol style="padding-left:22px;margin:0">
+<li><b>APIs och tjänster</b>, <b>Uppgifter</b> (Credentials), <b>Skapa uppgifter</b>, <b>API-nyckel</b>. Kopiera nyckeln.</li>
+<li>Tryck <b>Begränsa nyckel</b>. Under <b>Programbegränsningar</b>: <b>Webbplatser (HTTP-hänvisningsadresser)</b>. Lägg till <span style="font-family:monospace">https://haninshakrah.github.io/*</span>.</li>
+<li>Under <b>API-begränsningar</b>: <b>Begränsa nyckel</b> och välj bara <b>Google Calendar API</b>. Spara.</li>
+<li>Begränsningen gör att nyckeln inte går att använda från andra webbplatser, så den kan stå i sidans kod.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">D. OAuth-klient-ID (lägga in, ändra, ta bort)</div>
+<ol style="padding-left:22px;margin:0">
+<li><b>APIs och tjänster</b>, <b>OAuth-godkännandeskärm</b> (kan heta Google Auth Platform). Välj <b>Extern</b>, ange appnamn "Halas app" och din e-postadress.</li>
+<li>Lägg till omfånget <span style="font-family:monospace">.../auth/calendar.events</span> om du får frågan.</li>
+<li>Låt publiceringsstatus vara <b>Testning</b> och lägg till de Google-konton som ska ändra (du, brödrerna, personalens konton) som <b>Testanvändare</b>. Max 100.</li>
+<li><b>Uppgifter</b>, <b>Skapa uppgifter</b>, <b>OAuth-klient-ID</b>, typ <b>Webbapplikation</b>.</li>
+<li>Under <b>Behöriga JavaScript-ursprung</b>: <span style="font-family:monospace">https://haninshakrah.github.io</span> (utan snedstreck på slutet och utan /halasapp).</li>
+<li>Skapa och kopiera klient-ID:t. Det slutar på <span style="font-family:monospace">.apps.googleusercontent.com</span>. Det är inte hemligt. Kopiera inte någon "klienthemlighet".</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">E. Lägg in dem i appen</div>
+<ol style="padding-left:22px;margin:0">
+<li>Skicka API-nyckeln och klient-ID:t till Claude, så läggs de in i <b>index.html</b>. Eller sök på <span style="font-family:monospace">googleApiKey</span> och <span style="font-family:monospace">googleClientId</span> i filen.</li>
+<li>Öppna appen på GitHub-adressen. Första gången en person ändrar något öppnas Googles inloggning. Välj kontot. Googles varning "appen är inte verifierad" är normal i testläget. Välj <b>Avancerat</b> och <b>Fortsätt</b>.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:14px 0 6px">Så används det</div>
+<ul style="padding-left:22px;margin:0">
+<li><b>Lägga in:</b> I personalvyn, kategori Tid eller besök eller Praktiskt, med datum och tid. Posten hamnar också i Google Kalender.</li>
+<li><b>Ändra eller ta bort:</b> Under <b>Kommande i Google Kalender</b> i personalvyn. Ändra fyller i formuläret, ändra och tryck Spara. Ta bort kräver två tryck. Namnfältet måste vara ifyllt.</li>
+<li><b>Återkommande tider:</b> De visas som enskilda tillfällen. Att ändra eller ta bort gäller bara det tillfället. För att ändra hela serien öppnar du Google Kalender.</li>
+<li><b>I Google Kalender:</b> Alla ändringar där syns i appen inom 15 minuter.</li>
+</ul>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">5. Lunchmenyn</h2>
+<ul style="padding-left:22px;margin:0">
+<li>Menyn hämtas varje måndag och torsdag. Appen läser <b>menu.json</b> varje timme.</li>
+<li>Kör den direkt: <b>Actions</b>, <b>Uppdatera matsedel</b>, <b>Run workflow</b>, <b>Run workflow</b>.</li>
+<li>Rött kryss: öppna körningen och läs felet. "Hittade ingen meny" betyder att Malmö stad ändrat sin sida. Skicka felet till Claude.</li>
+<li>Står det "Permission denied": <b>Settings</b>, <b>Actions</b>, <b>General</b>, <b>Workflow permissions</b>, välj <b>Read and write permissions</b> och spara.</li>
+<li>Menyn är en vecka bakom när Malmö stad publicerar sent. Då syns den gamla menyn.</li>
+</ul>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">6. Ta appen i bruk</h2>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:0 0 6px">Surfplattan på väggen</div>
+<ol style="padding-left:22px;margin:0">
+<li>Öppna adressen i surfplattans webbläsare.</li>
+<li>iPad: välj Dela, <b>Lägg till på hemskärmen</b> och öppna därifrån, så försvinner adressfältet. Android: välj <b>Installera app</b> eller <b>Lägg till på startskärmen</b>.</li>
+<li>Slå av skärmlåset: Inställningar, Skärm, Automatisk låsning på <b>Aldrig</b>. Sätt surfplattan på laddning.</li>
+<li>iPad: slå på <b>Guidad åtkomst</b> (Tillgänglighet) så att ingen kan lämna sidan av misstag. Android: använd en kioskapp, till exempel Fully Kiosk Browser.</li>
+<li>Sidan visar tid och datum själv. Den byter sida var 12:e sekund och behöver inga tryck.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:18px 0 6px">Personalen</div>
+<ul style="padding-left:22px;margin:0">
+<li>Samma adress, vyn "Personal" (4b). Skriv namn, välj kategori och mottagare, och spara.</li>
+<li>Den som tar emot trycker <b>Kvittera</b>. Namn, dag och tid loggas på posten.</li>
+<li>Poster med datum i Tid eller besök och Praktiskt visas på skärmsläckaren.</li>
+</ul>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:18px 0 6px">Familjen</div>
+<ul style="padding-left:22px;margin:0">
+<li>Samma adress, vyn "Familj" (4c). Välj namn, kategori och mottagare.</li>
+<li>Familjen ser om personalen kvitterat och trycker själv "Kvittera läst".</li>
+<li>Kalendern är Halas Google-kalender. Alla med länken kan lägga in tider.</li>
+</ul>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">6b. Skärmsläckarens sidor, dagsrutin, mål och stjärnor</h2>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:0 0 6px">Skärmsläckaren</div>
+<ul style="padding-left:22px;margin:0">
+<li>Fasta delar: veckodag, datum, klocka, veckonummer, och en grön rad med <b>Just nu</b> och <b>Härnäst</b>.</li>
+<li>Sidor som byter var 12:e sekund: <b>Idag</b>, <b>Dagsrutin</b>, <b>Mina stjärnor</b>, <b>Den här veckan</b>, <b>Veckans matsedel</b>, och <b>Hälsningar från familjen</b> när sådana finns.</li>
+<li>Just nu och Härnäst räknas från dagsrutinen och dagens aktiviteter.</li>
+<li>Appen försöker även läsa Halas Google-kalender. Webbläsare blockerar ofta det. Fungerar det inte, lägg in tiderna som poster i personalvyn.</li>
+</ul>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:18px 0 6px">Dagsrutin (personalen)</div>
+<ol style="padding-left:22px;margin:0">
+<li>Skriv ditt namn i namnfältet i personalvyn (4b).</li>
+<li>I rutan <b>Dagsrutin idag</b> trycker du på en punkt när den är gjord. Den får en bock och visas överstruken på skärmsläckaren.</li>
+<li>Håll musen över punkten för att se vem som bockade av och när.</li>
+<li>Bockarna nollställs varje natt. Tryck igen för att ångra.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:18px 0 6px">Mål och stjärnor (personalen)</div>
+<ol style="padding-left:22px;margin:0">
+<li>Skriv ditt namn i namnfältet.</li>
+<li>Tryck på ett mål i rutan <b>Mål och stjärnor</b> när Hala har gjort det, till exempel träning eller promenad. Hon får stjärnor enligt målet och namn och tid loggas.</li>
+<li>När veckans antal är nått blir knappen grön. Fler tryck ger inga extra stjärnor.</li>
+<li>Gick det fel, tryck <b>Ångra senaste</b>.</li>
+<li>När saldot räcker för en belöning blir knappen <b>Lös in</b> röd. Tryck på den när belöningen har genomförts, och skicka sedan ett meddelande till familjen i 4c eller 4b, så att de kan boka frisör eller utflykt.</li>
+<li>Målen nollställs varje måndag. Stjärnorna sparas.</li>
+</ol>
+<div style="font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#3a5428;margin:18px 0 6px">Anpassa</div>
+<p style="margin:0">Mål, belöningar och dagsrutin ändrar du i filen. Sök på <span style="font-family:monospace">GOALS =</span>, <span style="font-family:monospace">REWARDS =</span> eller <span style="font-family:monospace">ROUTINE =</span> (avsnitt 2). Ändra bara namn och siffror, och behåll tecknen runtom. Vill du lägga till en punkt, kopiera en hel rad och ge den ett nytt <span style="font-family:monospace">id</span>.</p>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">7. Att veta innan ni börjar använda den på riktigt</h2>
+<ul style="padding-left:22px;margin:0">
+<li><b>Poster delas inte mellan enheter.</b> Det som personalen skriver in, bockar av i dagsrutinen eller loggar som mål och stjärnor syns bara i webbläsaren på den enhet där det gjordes. Surfplattan, personalens telefoner och familjens telefoner ser alltså olika listor. Kvittenserna och loggen gäller på samma sätt bara på den enheten.</li>
+<li><b>Lösning:</b> Koppla in en gemensam databas, till exempel Firebase eller Supabase. Be Claude om det. Du behöver då skapa ett gratis konto och klistra in en nyckel.</li>
+<li><b>Ingen inloggning och inga aviseringar.</b> Alla som har adressen kan läsa och skriva. Adressen är öppen på internet.</li>
+<li><b>Känsliga uppgifter.</b> Skriv inte personnummer, diagnoser eller medicinuppgifter i appen innan databas, inloggning och regler för personuppgifter finns på plats. Prata med boendet om vad som får registreras.</li>
+<li><b>Inga albumuppladdningar från telefoner.</b> Bilder läggs in via repon.</li>
+</ul>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">8. Rekommenderad ordning</h2>
+<ol style="padding-left:22px;margin:0">
+<li>Skapa repon och lägg upp filerna (avsnitt 0).</li>
+<li>Kontrollera att menyflödet fungerar och att <b>menu.json</b> uppdateras (avsnitt 0, steg 5 och avsnitt 5).</li>
+<li>Ta bort exempelposterna (sök på <span style="font-family:monospace">seedEntries</span>) och byt namn och bilder till era egna.</li>
+<li>Prova flödet själv: skicka som familj i 4c, kvittera som personal i 4b och kontrollera loggen.</li>
+<li>Ställ in surfplattan (avsnitt 6).</li>
+<li>Be Claude koppla in en gemensam databas, så att alla ser samma poster.</li>
+<li>Be om inloggning och aviseringar när databasen fungerar.</li>
+</ol>
+
+<h2 style="font-size:26px;margin:40px 0 8px;border-top:2px solid #2b2a22;padding-top:14px">9. Felsökning</h2>
+<div style="display:grid;grid-template-columns:220px 1fr;gap:10px 16px;font-size:16px;border-top:1px solid #998d75;padding-top:10px">
+<b>Sidan visar gammalt innehåll</b><span>Ladda om utan cache (Ctrl+Skift+R). Kontrollera under <b>Actions</b> att "pages build and deployment" är grön.</span>
+<b>Sidan är tom</b><span>Gå till <b>History</b> för <b>index.html</b> och återställ senaste fungerande version.</span>
+<b>Bilder saknas</b><span>Kontrollera att filen ligger i <b>uploads</b> och att namnet i listan stämmer exakt, inklusive stor och liten bokstav.</span>
+<b>Kalendern visar inloggning</b><span>I Google Kalender: Inställningar, Åtkomstbehörigheter, slå på "Gör tillgänglig för allmänheten".</span>
+<b>Menyn visar "Exempeldata"</b><span>Kontrollera att <b>menu.json</b> ligger i roten av repon och kör menyflödet.</span>
+<b>Kvittera gör inget</b><span>Skriv ditt namn i namnfältet först.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAlbum&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Delat Google-album&quot;},&quot;albumSync&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;manuell&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;manuell&quot;,&quot;automatisk&quot;],&quot;section&quot;:&quot;Delat Google-album&quot;},&quot;albumUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delat Google-album&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props, url = (p.albumUrl || '').trim(), mode = p.albumSync ?? 'manuell';
+    return { showAlbum: p.showAlbum ?? true, isManual: mode === 'manuell', isAuto: mode === 'automatisk', albumHref: url || '#', albumLabel: url || 'Klistra in länken i Tweaks (albumUrl)' };
+  }
+}
+</script>
+</body>
+</html>

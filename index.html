@@ -9,6 +9,9 @@
 <x-dc>
 <helmet>
 <meta name="design_doc_mode" content="canvas">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hala">
 <link rel="stylesheet" href="_ds/modernist-6cdc2057-5947-417f-ab1a-0c1cba987553/styles.css">
 <style>
 :root{--color-bg:#f1ece1;--color-surface:#e6dfce;--color-text:#2b2a22;--color-accent:#577a3a;--color-accent-2:#b4532f;--color-clay:#a8472a;
@@ -18,22 +21,41 @@
 --shadow-lg:0 12px 32px color-mix(in srgb,#2d2921 22%,transparent)}
 body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
 </helmet>
-<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx android-frame.jsx" hint-size="0,0" style="display:none"></x-import>
-<section style="padding:64px;font-family:var(--font-body);color:var(--color-text)">
+<sc-if value="{{ design }}" hint-placeholder-val="{{ true }}"><div style="display:none"><x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx android-frame.jsx" hint-size="0,0"></x-import></div></sc-if>
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ toggleMenu }}" style="position:fixed;top:8px;right:8px;z-index:200;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:2px solid var(--color-text);background:var(--color-bg);color:var(--color-text);font-size:22px;font-weight:800;cursor:pointer;opacity:{{ menuOp }}">≡</div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:150;background:var(--color-bg);overflow:auto;padding:64px 20px 40px;font-family:var(--font-body);color:var(--color-text);box-sizing:border-box">
+      <div style="max-width:480px;margin:0 auto">
+        <h1 style="font-size:34px;margin:0 0 4px">Välj vy</h1>
+        <div style="font-size:14px;color:var(--color-neutral-700);margin-bottom:12px">Din enhet kommer ihåg valet.</div>
+        <sc-for list="{{ menuGroups }}" as="g" hint-placeholder-count="3">
+          <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700);margin:20px 0 6px;border-top:2px solid var(--color-divider);padding-top:10px">{{ g.title }}</div>
+          <sc-for list="{{ g.items }}" as="i" hint-placeholder-count="4">
+            <div onClick="{{ i.onPick }}" style="cursor:pointer;padding:14px 12px;margin-bottom:6px;border:2px solid var(--color-text);font-size:18px;font-weight:800;background:{{ i.bg }};color:{{ i.fg }}">{{ i.label }}</div>
+          </sc-for>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</sc-if>
+<section style="padding:{{ secPad }};font-family:var(--font-body);color:var(--color-text)">
+  <sc-if value="{{ design }}" hint-placeholder-val="{{ true }}">
   <div style="max-width:1100px;margin-bottom:48px">
     <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Utkast 1</div>
     <h1 style="font-size:48px;margin:8px 0 12px">Hala Shakrahs vård och omsorgsapp</h1>
     <p style="font-size:16px;max-width:640px;margin:0;color:var(--color-neutral-700)">Familjen följer Halas dag på distans. Personalen på Fosieborgs äldreboende loggar vård, bokningar och uppdateringar. Hanin är administratör; Ala, Hammed, Eyass och Eman kan se och skriva.</p>
   </div>
+  </sc-if>
 
-  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:16px;border-top:2px solid var(--color-divider);padding-top:12px">Familjeappen · iPhone</div>
+  <sc-if value="{{ design }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:16px;border-top:2px solid var(--color-divider);padding-top:12px">Familjeappen · iPhone</div></sc-if>
   <div style="display:flex;flex-wrap:wrap;gap:56px;margin-bottom:72px">
 
-    <div id="1a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1a</span>Hem</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+    <div id="1a" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1a }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1a</span>Hem</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
         <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
-          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+          <div style="flex:1;overflow:auto;padding:var(--top,64px) 20px 16px">
             <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Vård och omsorg</div>
             <h1 style="font-size:34px;margin:4px 0 2px">Hala Shakrah</h1>
             <div style="font-size:13px;color:var(--color-neutral-700)">Fosieborgs äldreboende · Lindeborgsgatan</div>
@@ -65,16 +87,16 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
               <div style="padding:14px 12px;font-size:14px;font-weight:800">Se personal</div>
             </div>
           </div>
-          <dc-import name="TabBar" active="hem" hint-size="402,86"></dc-import>
+          <dc-import name="TabBar" active="hem" on-tab="{{ goTab }}" hint-size="402,86"></dc-import>
         </div>
       </x-import>
     </div>
 
-    <div id="1b" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1b</span>Kalender</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+    <div id="1b" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1b }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1b</span>Kalender</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
         <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
-          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+          <div style="flex:1;overflow:auto;padding:var(--top,64px) 20px 16px">
             <h1 style="font-size:34px;margin:0 0 2px">Kalender</h1>
             <div style="font-size:13px;color:var(--color-neutral-700)">November 2026 · Vecka 45</div>
             <div style="height:2px;background:var(--color-divider);margin:16px 0 0"></div>
@@ -108,16 +130,16 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
               </div>
             </sc-if>
           </div>
-          <dc-import name="TabBar" active="kalender" hint-size="402,86"></dc-import>
+          <dc-import name="TabBar" active="kalender" on-tab="{{ goTab }}" hint-size="402,86"></dc-import>
         </div>
       </x-import>
     </div>
 
-    <div id="1c" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1c</span>Meddelanden</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+    <div id="1c" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1c }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1c</span>Meddelanden</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
         <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
-          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+          <div style="flex:1;overflow:auto;padding:var(--top,64px) 20px 16px">
             <h1 style="font-size:34px;margin:0 0 12px">Meddelanden</h1>
             <div class="seg" style="width:100%">
               <label class="seg-opt" style="flex:1;background:var(--color-accent);color:var(--color-bg)">Alla</label>
@@ -140,16 +162,16 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
             <input class="input" placeholder="Skriv till personalen" style="flex:1" />
             <button class="btn btn-primary">Skicka</button>
           </div>
-          <dc-import name="TabBar" active="meddelanden" hint-size="402,86"></dc-import>
+          <dc-import name="TabBar" active="meddelanden" on-tab="{{ goTab }}" hint-size="402,86"></dc-import>
         </div>
       </x-import>
     </div>
 
-    <div id="1d" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1d</span>Aviseringar</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+    <div id="1d" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1d }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1d</span>Aviseringar</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
         <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
-          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+          <div style="flex:1;overflow:auto;padding:var(--top,64px) 20px 16px">
             <h1 style="font-size:34px;margin:0 0 2px">Aviseringar</h1>
             <div style="font-size:13px;color:var(--color-neutral-700)">Fall och olyckor, ändrad vårdplan, läkarbesök</div>
             <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="4">
@@ -163,16 +185,16 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
               </div>
             </sc-for>
           </div>
-          <dc-import name="TabBar" active="aviseringar" hint-size="402,86"></dc-import>
+          <dc-import name="TabBar" active="aviseringar" on-tab="{{ goTab }}" hint-size="402,86"></dc-import>
         </div>
       </x-import>
     </div>
 
-    <div id="1e" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1e</span>Personal och familj</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+    <div id="1e" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1e }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1e</span>Personal och familj</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
         <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text)">
-          <div style="flex:1;overflow:auto;padding:64px 20px 16px">
+          <div style="flex:1;overflow:auto;padding:var(--top,64px) 20px 16px">
             <h1 style="font-size:34px;margin:0 0 16px">Personal</h1>
             <sc-for list="{{ staff }}" as="p" hint-placeholder-count="3">
               <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px 0;border-top:1px solid var(--color-divider)">
@@ -189,17 +211,17 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
             </sc-for>
             <button class="btn btn-secondary btn-block" style="margin-top:12px">Bjud in familjemedlem</button>
           </div>
-          <dc-import name="TabBar" active="personal" hint-size="402,86"></dc-import>
+          <dc-import name="TabBar" active="personal" on-tab="{{ goTab }}" hint-size="402,86"></dc-import>
         </div>
       </x-import>
     </div>
   </div>
 
-  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:16px;border-top:2px solid var(--color-divider);padding-top:12px">Personalappen · surfplatta och Android</div>
+  <sc-if value="{{ design }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin-bottom:16px;border-top:2px solid var(--color-divider);padding-top:12px">Personalappen · surfplatta och Android</div></sc-if>
   <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
 
-    <div id="1f" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1f</span>Daglogg · surfplatta</div>
+    <div id="1f" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1f }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1f</span>Daglogg · surfplatta</div>
       <div style="width:1040px;height:720px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:200px 1fr 290px;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
         <div style="border-right:2px solid var(--color-divider);padding:24px 16px;display:flex;flex-direction:column;gap:4px">
           <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--color-accent-700)">Personal</div>
@@ -234,9 +256,9 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
       </div>
     </div>
 
-    <div id="1g" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1g</span>Ny uppdatering · Android</div>
-      <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" width="{{ 412 }}" height="{{ 892 }}" title="Ny uppdatering" hint-size="412,892">
+    <div id="1g" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1g }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1g</span>Ny uppdatering · Android</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="android" width="{{ 412 }}" height="{{ 892 }}" title="Ny uppdatering" hint-size="412,892">
         <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px;font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);min-height:100%">
           <div style="font-size:13px;color:var(--color-neutral-700)">Till familjen om Hala Shakrah</div>
           <div class="field"><label>Meddelande</label><textarea class="input" style="min-height:130px">Hala deltog i sångstunden i matsalen och sjöng med.</textarea></div>
@@ -250,9 +272,9 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
       </x-import>
     </div>
 
-    <div id="1h" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1h</span>Händelse och vitalparametrar · Android</div>
-      <x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" width="{{ 412 }}" height="{{ 892 }}" title="Händelse och mätvärden" hint-size="412,892">
+    <div id="1h" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v1h }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">1h</span>Händelse och vitalparametrar · Android</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="android" width="{{ 412 }}" height="{{ 892 }}" title="Händelse och mätvärden" hint-size="412,892">
         <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px;font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);min-height:100%">
           <div class="field"><label>Typ av händelse</label>
             <div class="seg" style="width:100%"><label class="seg-opt" style="flex:1;background:var(--color-accent);color:var(--color-bg)">Fall</label><label class="seg-opt" style="flex:1">Vårdplan</label><label class="seg-opt" style="flex:1">Annat</label></div>
@@ -272,11 +294,11 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
     </div>
   </div>
 
-  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Halas skärmsläckare · surfplatta i rummet</div>
+  <sc-if value="{{ design }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Halas skärmsläckare · surfplatta i rummet</div></sc-if>
   <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
 
-    <div id="2a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2a</span>Skärmsläckare</div>
+    <div id="2a" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v2a }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2a</span>Skärmsläckare</div>
       <div style="width:1040px;height:720px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:440px 1fr;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
         <div style="display:grid;grid-template-rows:auto 1fr auto;border-right:2px solid var(--color-divider)">
           <div style="padding:36px 32px 0">
@@ -321,10 +343,10 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
       </div>
     </div>
 
-    <div id="2b" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2b</span>Album (familjeappen)</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
-        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+    <div id="2b" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v2b }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2b</span>Album (familjeappen)</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:var(--top,64px) 20px 32px;box-sizing:border-box">
           <h1 style="font-size:34px;margin:0 0 2px">Album</h1>
           <div style="font-size:13px;color:var(--color-neutral-700)">Delas av hela familjen · syns på Halas skärmsläckare</div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 12px">
@@ -344,10 +366,10 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
       </x-import>
     </div>
 
-    <div id="2c" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2c</span>Skärmsläckare · inställningar (familjeappen)</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
-        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+    <div id="2c" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v2c }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">2c</span>Skärmsläckare · inställningar (familjeappen)</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:var(--top,64px) 20px 32px;box-sizing:border-box">
           <h1 style="font-size:34px;margin:0 0 2px">Skärmsläckare</h1>
           <div style="font-size:13px;color:var(--color-neutral-700)">Visas på surfplattan i Halas rum</div>
           <div style="height:2px;background:var(--color-divider);margin:16px 0 12px"></div>
@@ -376,11 +398,11 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
     </div>
   </div>
 
-  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Halas surfplatta · skärmsläckare och personalvy</div>
+  <sc-if value="{{ design }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Halas surfplatta · skärmsläckare och personalvy</div></sc-if>
   <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start;margin-bottom:72px">
 
-    <div id="4a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4a</span>Skärmsläckare · bläddrar själv var 12:e sekund</div>
+    <div id="4a" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v4a }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4a</span>Skärmsläckare · bläddrar själv var 12:e sekund</div>
       <div style="width:1280px;height:800px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:430px 1fr;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
         <div style="display:grid;grid-template-rows:auto 1fr auto;border-right:2px solid var(--color-divider);background:var(--color-surface)">
           <div style="padding:40px 32px 0">
@@ -482,8 +504,8 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
       </div>
     </div>
 
-    <div id="4b" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4b</span>Personal · lägg in, kvittera och se loggen</div>
+    <div id="4b" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v4b }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4b</span>Personal · lägg in, kvittera och se loggen</div>
       <div style="width:1280px;height:800px;border:12px solid var(--color-text);background:var(--color-bg);display:grid;grid-template-columns:470px 1fr;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);overflow:hidden">
         <div style="border-right:2px solid var(--color-divider);padding:20px 28px;display:flex;flex-direction:column;gap:12px;overflow:auto">
           <div class="field"><label>Ditt namn (avsändare och den som kvitterar)</label><input class="input" style="font-size:18px;padding:11px" placeholder="t.ex. Maria" value="{{ sName }}" onChange="{{ onSName }}" /></div>
@@ -543,10 +565,10 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
       </div>
     </div>
 
-    <div id="4c" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4c</span>Familj · skicka till personalen och kvittera</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
-        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+    <div id="4c" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v4c }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">4c</span>Familj · skicka till personalen och kvittera</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:var(--top,64px) 20px 32px;box-sizing:border-box">
           <h1 style="font-size:32px;margin:0 0 10px">Till personalen</h1>
           <div class="field"><label>Du är</label>
             <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ famChips }}" as="c" hint-placeholder-count="5"><div onClick="{{ c.onPick }}" style="cursor:pointer;border:2px solid var(--color-text);padding:6px 10px;font-size:14px;font-weight:800;background:{{ c.bg }};color:{{ c.fg }}">{{ c.name }}</div></sc-for></div>
@@ -587,12 +609,12 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
     </div>
   </div>
 
-  <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Matsedel från boendet</div>
+  <sc-if value="{{ design }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:72px 0 16px;border-top:2px solid var(--color-divider);padding-top:12px">Matsedel från boendet</div></sc-if>
   <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
-    <div id="3a" style="flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:13px;font-weight:800"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">3a</span>Matsedel</div>
-      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
-        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:64px 20px 32px;box-sizing:border-box">
+    <div id="3a" style="flex-shrink:0;flex-direction:column;gap:12px;{{ w.v3a }}">
+      <div style="font-size:13px;font-weight:800;display:{{ lbl }}"><span style="background:var(--color-accent);color:var(--color-bg);padding:2px 8px;margin-right:8px">3a</span>Matsedel</div>
+      <x-import component-from-global-scope="AppFrame" from="./app-frame.jsx" kind="ios" width="{{ 402 }}" height="{{ 874 }}" hint-size="402,874">
+        <div style="height:100%;overflow:auto;background:var(--color-bg);font-family:var(--font-body);color:var(--color-text);padding:var(--top,64px) 20px 32px;box-sizing:border-box">
           <h1 style="font-size:34px;margin:0 0 2px">Matsedel</h1>
           <div style="font-size:13px;color:var(--color-neutral-700)">Fosieborgs äldreboende · veckans mat</div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;border-top:2px solid var(--color-divider);padding-top:10px">
@@ -617,7 +639,7 @@ body{margin:0;background:#ddd5c3}::-webkit-scrollbar{display:none}</style>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;calendarLink&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;familyRoles&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;admin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;admin&quot;,&quot;equal&quot;],&quot;section&quot;:&quot;Familjeapp&quot;},&quot;showPhotos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Familjeapp&quot;},&quot;menuFeedUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Matsedel&quot;},&quot;googleApiKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Google Kalender&quot;},&quot;googleClientId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Google Kalender&quot;},&quot;supabaseUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delade bilder&quot;},&quot;supabaseKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delade bilder&quot;},&quot;supabaseBucket&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;hala-bilder&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Delade bilder&quot;}}">
 class Component extends DCLogic {
-  state = { now: new Date(), slide: 0, sec: 0, interval: 6, albums: this.loadAlbums(), target: 'hala', status: '', changed: new Date(), menu: null, menuLive: false, entries: this.loadEntries(), routine: this.loadRoutine(), goals: this.loadGoals(), cal: [], calErr: '', calLive: false, lastLink: '', editId: '', delId: '', filter: 'alla', formCat: 'tid', formTitle: '', formDate: '', formTime: '', formNote: '', formFam: true, formTo: 'Sjuksköterska', formToName: '', gToName: '', formMsg: '', sName: '', famUser: 'Hanin', gCat: 'familj', gTo: 'Sjuksköterska', gTitle: '', gNote: '', gMsg: '', pg: 0 };
+  state = { view: this.initView(), vw: window.innerWidth, vh: window.innerHeight, menuOpen: false, now: new Date(), slide: 0, sec: 0, interval: 6, albums: this.loadAlbums(), target: 'hala', status: '', changed: new Date(), menu: null, menuLive: false, entries: this.loadEntries(), routine: this.loadRoutine(), goals: this.loadGoals(), cal: [], calErr: '', calLive: false, lastLink: '', editId: '', delId: '', filter: 'alla', formCat: 'tid', formTitle: '', formDate: '', formTime: '', formNote: '', formFam: true, formTo: 'Sjuksköterska', formToName: '', gToName: '', formMsg: '', sName: '', famUser: 'Hanin', gCat: 'familj', gTo: 'Sjuksköterska', gTitle: '', gNote: '', gMsg: '', pg: 0 };
   menuUrl() { return (this.props.menuFeedUrl || 'webcal://p103-caldav.icloud.com/published/2/MjExNjAwNjUxMjExNjAwNoxH0ysZRYKeT6UkxGmYvxdIgrG_sNcE2rUnj0lnZnX1ad6rq0XYqQkpWKf7Daiyr8pQC_PhXpVVA286ruqTLh4').replace(/^webcal/, 'https'); }
   loadMenu() {
     fetch('menu.json', { cache: 'no-cache' }).then(r => r.json()).then(j => {
@@ -647,6 +669,8 @@ class Component extends DCLogic {
     this.t1 = setInterval(() => this.setState(s => ({ now: new Date(), sec: s.sec + 1, slide: (s.sec + 1) % s.interval === 0 ? s.slide + 1 : s.slide })), 1000);
     this.onStorage = e => { if (e.key === this.EKEY) this.setState({ entries: this.loadEntries() }); if (e.key === this.RKEY) this.setState({ routine: this.loadRoutine() }); if (e.key === this.GKEY) this.setState({ goals: this.loadGoals() }); if (e.key === this.KEY) this.setState({ albums: this.loadAlbums(), changed: new Date(), status: 'Nya bilder hämtade' }); };
     window.addEventListener('storage', this.onStorage);
+    this.onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight }); window.addEventListener('resize', this.onResize);
+    if (this.isApp()) { document.body.style.overflow = 'hidden'; document.documentElement.style.overflow = 'hidden'; }
     this.t4 = setInterval(() => this.setState(s => ({ pg: s.pg + 1 })), 12000); this.loadCal(); this.t5 = setInterval(() => this.loadCal(), 900000); this.loadMenu(); this.t3 = setInterval(() => this.loadMenu(), 3600000);
     this.syncPhotos(); this.t6 = setInterval(() => this.syncPhotos(), 300000);
   }
@@ -694,6 +718,28 @@ class Component extends DCLogic {
         const albums = this.state.albums.map((a, i) => res[i] ? { ...a, photos: [...res[i], ...a.photos.filter(p => !p.remote)] } : a);
         this.saveAlbums(albums, 'Bilder synkade ' + new Date().toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' }));
       });
+  }
+  VIEWS = { '1a': 'Hem', '1b': 'Kalender', '1c': 'Meddelanden', '1d': 'Aviseringar', '1e': 'Personal och familj', '2b': 'Album', '2c': 'Skärmsläckare, inställningar', '3a': 'Matsedel', '4c': 'Skicka till personalen', '4b': 'Personalvy (surfplatta)', '1f': 'Daglogg (surfplatta)', '1g': 'Ny uppdatering', '1h': 'Händelse och mätvärden', '4a': 'Skärmsläckare', '2a': 'Skärmsläckare med bildspel' };
+  isApp() { return /[?&]app\b/.test(location.search) || /github\.io$/.test(location.hostname); }
+  initView() {
+    try { const q = (new URLSearchParams(location.search).get('vy') || '').toLowerCase(); if (q && this.VIEWS[q]) { localStorage.setItem('hala.view', q); return q; } const s = localStorage.getItem('hala.view'); if (s && this.VIEWS[s]) return s; } catch (e) {}
+    return window.innerWidth < 700 ? '1a' : '4a';
+  }
+  setView(id) { try { localStorage.setItem('hala.view', id); } catch (e) {} this.setState({ view: id, menuOpen: false }); }
+  goTab = k => this.setView({ hem: '1a', kalender: '1b', meddelanden: '1c', aviseringar: '1d', personal: '1e' }[k] || '1a');
+  toggleMenu = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  appVals() {
+    const app = this.isApp(), s = this.state, v = s.view, dims = { '4a': [1304, 824], '4b': [1304, 824], '1f': [1064, 744], '2a': [1064, 744] };
+    const w = {};
+    Object.keys(this.VIEWS).forEach(id => {
+      if (!app) { w['v' + id] = 'display:flex'; return; }
+      if (id !== v) { w['v' + id] = 'display:none'; return; }
+      const d = dims[id];
+      w['v' + id] = d ? 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--color-bg);zoom:' + Math.min(s.vw / d[0], s.vh / d[1]).toFixed(3) : 'position:fixed;inset:0;margin:0 auto;max-width:480px;width:100%;display:flex;background:var(--color-bg)';
+    });
+    const grp = (title, ids) => ({ title, items: ids.map(id => ({ label: this.VIEWS[id], bg: id === v ? 'var(--color-accent)' : 'transparent', fg: id === v ? 'var(--color-bg)' : 'var(--color-text)', onPick: () => this.setView(id) })) });
+    return { w, isApp: app, design: !app, secPad: app ? '0' : '64px', lbl: app ? 'none' : 'block', menuOpen: s.menuOpen, menuOp: ['4a', '2a'].includes(v) && !s.menuOpen ? 0.2 : 1, toggleMenu: this.toggleMenu, goTab: this.goTab,
+      menuGroups: [grp('Familj', ['1a', '1b', '1c', '1d', '1e', '2b', '2c', '3a', '4c']), grp('Personal', ['4b', '1f', '1g', '1h']), grp('Halas skärm', ['4a', '2a'])] };
   }
   setIntervalSec = n => () => this.setState({ interval: n, sec: 0 });
   CATS = [
@@ -981,7 +1027,7 @@ class Component extends DCLogic {
       menuDays = ex.map((e, i) => ({ day: e[0], date: e[1], rule: i ? '1px solid var(--color-divider)' : '2px solid var(--color-divider)', items: [{ meal: 'Lunch', what: e[2] }, { meal: 'Middag', what: e[3] }] }));
     }
     const menuVals = { menuDays, menuStatus: st.menuLive ? 'Synkad' : 'Exempeldata', menuTagCls: st.menuLive ? 'tag-accent' : 'tag-neutral' };
-    return { ...screensaver, ...menuVals, ...this.tabletVals(), ...this.baseVals() };
+    return { ...screensaver, ...menuVals, ...this.tabletVals(), ...this.appVals(), ...this.baseVals() };
   }
   baseVals() {
     const ok = 'tag-neutral', nx = 'tag-accent';
